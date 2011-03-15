@@ -18,6 +18,9 @@ Global
 		SccProjectName2 = SrvsToolSetup
 		SccLocalPath2 = SrvsToolSetup
 	EndGlobalSection
+	GlobalSection(SharpSetup) = preSolution
+		Version = 1.2
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CodeAnalysisDebug|Any CPU = CodeAnalysisDebug|Any CPU
 		CodeAnalysisDebug|Mixed Platforms = CodeAnalysisDebug|Mixed Platforms
