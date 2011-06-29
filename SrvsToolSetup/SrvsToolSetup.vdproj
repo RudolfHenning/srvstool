@@ -15,26 +15,26 @@
     {
         "Entry"
         {
+        "MsmKey" = "8:_06263BC318CBBF1766105D75243CE65E"
+        "OwnerKey" = "8:_E457BC004B15488BA65099F4A84C63B0"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_06263BC318CBBF1766105D75243CE65E"
+        "OwnerKey" = "8:_724CA29374ACAD67064DBACF3371E2FE"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_724CA29374ACAD67064DBACF3371E2FE"
+        "OwnerKey" = "8:_E457BC004B15488BA65099F4A84C63B0"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_7DADF9FDB2D0400C840C52BD336139B9"
         "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_A3B6E125FFE93F51B055FE8A5C0C1B1A"
-        "OwnerKey" = "8:_E457BC004B15488BA65099F4A84C63B0"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_BF26C4708433FA2BD37202FE95BEBEED"
-        "OwnerKey" = "8:_E457BC004B15488BA65099F4A84C63B0"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_BF26C4708433FA2BD37202FE95BEBEED"
-        "OwnerKey" = "8:_A3B6E125FFE93F51B055FE8A5C0C1B1A"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -58,13 +58,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_A3B6E125FFE93F51B055FE8A5C0C1B1A"
+        "OwnerKey" = "8:_724CA29374ACAD67064DBACF3371E2FE"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_BF26C4708433FA2BD37202FE95BEBEED"
+        "OwnerKey" = "8:_06263BC318CBBF1766105D75243CE65E"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -172,10 +172,21 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7DADF9FDB2D0400C840C52BD336139B9"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_06263BC318CBBF1766105D75243CE65E"
             {
-            "SourcePath" = "8:SrvsToolFile.ico"
-            "TargetName" = "8:SrvsToolFile.ico"
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Microsoft.WindowsAPICodePack, Version=1.0.0.0, Culture=neutral, PublicKeyToken=ea8b014c4b785c59, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_06263BC318CBBF1766105D75243CE65E"
+                    {
+                    "Name" = "8:Microsoft.WindowsAPICodePack.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Microsoft.WindowsAPICodePack.dll"
+            "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_BD02BBCF79994FE4A388FF22C6199AC9"
             "Condition" = "8:"
@@ -189,17 +200,17 @@
             "PackageAs" = "3:1"
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_A3B6E125FFE93F51B055FE8A5C0C1B1A"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_724CA29374ACAD67064DBACF3371E2FE"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:Microsoft.WindowsAPICodePack.Shell, Version=1.0.0.0, Culture=neutral, PublicKeyToken=ea8b014c4b785c59, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_A3B6E125FFE93F51B055FE8A5C0C1B1A"
+                    "_724CA29374ACAD67064DBACF3371E2FE"
                     {
                     "Name" = "8:Microsoft.WindowsAPICodePack.Shell.dll"
                     "Attributes" = "3:512"
@@ -223,21 +234,10 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_BF26C4708433FA2BD37202FE95BEBEED"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7DADF9FDB2D0400C840C52BD336139B9"
             {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Microsoft.WindowsAPICodePack, Version=1.0.0.0, Culture=neutral, PublicKeyToken=ea8b014c4b785c59, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_BF26C4708433FA2BD37202FE95BEBEED"
-                    {
-                    "Name" = "8:Microsoft.WindowsAPICodePack.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:Microsoft.WindowsAPICodePack.dll"
-            "TargetName" = "8:"
+            "SourcePath" = "8:SrvsToolFile.ico"
+            "TargetName" = "8:SrvsToolFile.ico"
             "Tag" = "8:"
             "Folder" = "8:_BD02BBCF79994FE4A388FF22C6199AC9"
             "Condition" = "8:"
@@ -251,7 +251,7 @@
             "PackageAs" = "3:1"
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FC504B42A4B14C8FB20C8A0AF91D133A"
@@ -365,7 +365,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Services monitor"
         "ProductCode" = "8:{3AAC4393-BE23-4E48-BB72-DE1CD0928AB9}"
-        "PackageCode" = "8:{A377344B-94D4-4761-8C1B-1D1F52D6AF88}"
+        "PackageCode" = "8:{FB445A88-FBC5-41D2-A57E-F9B55F3A3497}"
         "UpgradeCode" = "8:{AD34D295-FCA7-47EC-A770-ED45ED8EF41E}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
