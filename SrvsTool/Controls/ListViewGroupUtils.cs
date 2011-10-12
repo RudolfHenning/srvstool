@@ -2,6 +2,8 @@
 using System.Runtime.InteropServices;
 using System.ComponentModel;
 
+/// Based on the following codeproject article: http://www.codeproject.com/KB/list/ListViewGroupCollapsible.aspx
+
 namespace SrvsTool.Controls
 {
     /// <summary>
