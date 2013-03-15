@@ -179,11 +179,6 @@
             "AssemblyAsmDisplayName" = "8:Microsoft.WindowsAPICodePack, Version=1.0.0.0, Culture=neutral, PublicKeyToken=ea8b014c4b785c59, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_06263BC318CBBF1766105D75243CE65E"
-                    {
-                    "Name" = "8:Microsoft.WindowsAPICodePack.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:Microsoft.WindowsAPICodePack.dll"
             "TargetName" = "8:"
@@ -210,11 +205,6 @@
             "AssemblyAsmDisplayName" = "8:Microsoft.WindowsAPICodePack.Shell, Version=1.0.0.0, Culture=neutral, PublicKeyToken=ea8b014c4b785c59, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_724CA29374ACAD67064DBACF3371E2FE"
-                    {
-                    "Name" = "8:Microsoft.WindowsAPICodePack.Shell.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:Microsoft.WindowsAPICodePack.Shell.dll"
             "TargetName" = "8:"
@@ -364,15 +354,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Services monitor"
-        "ProductCode" = "8:{3AAC4393-BE23-4E48-BB72-DE1CD0928AB9}"
-        "PackageCode" = "8:{FB445A88-FBC5-41D2-A57E-F9B55F3A3497}"
+        "ProductCode" = "8:{0D9FF3E4-6F9D-44A7-A868-6A64A7F537D1}"
+        "PackageCode" = "8:{0AACD41F-8962-40EA-BCB4-798152491C96}"
         "UpgradeCode" = "8:{AD34D295-FCA7-47EC-A770-ED45ED8EF41E}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:2.1.10"
+        "ProductVersion" = "8:2.1.12"
         "Manufacturer" = "8:Hen IT"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
