@@ -12,7 +12,7 @@
     <AssemblyName>SrvsTool</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <ApplicationIcon>state.ico</ApplicationIcon>
+    <ApplicationIcon>GMix.ico</ApplicationIcon>
     <SignAssembly>true</SignAssembly>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <AssemblyOriginatorKeyFile>HenIT.pfx</AssemblyOriginatorKeyFile>
@@ -22,6 +22,10 @@
     </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
     <PublishUrl>http://localhost/SrvsTool/</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
@@ -36,10 +40,6 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <SccProjectName>SAK</SccProjectName>
-    <SccLocalPath>SAK</SccLocalPath>
-    <SccAuxPath>SAK</SccAuxPath>
-    <SccProvider>SAK</SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -140,6 +140,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Utils\DelayExecute.cs" />
     <EmbeddedResource Include="Forms\AddServices.resx">
       <DependentUpon>AddServices.cs</DependentUpon>
@@ -149,16 +154,17 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="app.config" />
     <None Include="HenIT.pfx" />
+    <None Include="Installer\1. GetReleasedBinaries.cmd" />
+    <None Include="Installer\2. Build all.cmd" />
+    <None Include="Installer\2. Build x64.cmd" />
+    <None Include="Installer\2. Build.cmd" />
+    <None Include="Installer\DialogBkground.pdn" />
+    <None Include="Installer\InstallBanner.pdn" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -236,8 +242,26 @@
     <None Include="Resources\OUTLLIBR_9825.ico" />
     <None Include="Resources\options.png" />
     <None Include="Resources\Eventlog.ico" />
+    <EmbeddedResource Include="icons\GBusy2.ico" />
+    <EmbeddedResource Include="icons\GPaused.ico" />
+    <EmbeddedResource Include="icons\GPaused2.ico" />
+    <EmbeddedResource Include="icons\GRunning.ico" />
+    <EmbeddedResource Include="icons\GRunning2.ico" />
+    <EmbeddedResource Include="icons\GStopped.ico" />
+    <EmbeddedResource Include="icons\GStopped2.ico" />
+    <EmbeddedResource Include="icons\GUnknown.ico" />
+    <EmbeddedResource Include="icons\GUnknown2.ico" />
+    <EmbeddedResource Include="icons\GMix.ico" />
+    <Content Include="GMix.ico" />
     <Content Include="icons\srvlst.ico" />
     <Content Include="icons\SrvsToolFile.ico" />
+    <None Include="Resources\refresh.png" />
+    <Content Include="Installer\DialogBkground.bmp" />
+    <Content Include="Installer\InstallBanner.bmp" />
+    <Content Include="Installer\Microsoft.WindowsAPICodePack.dll" />
+    <Content Include="Installer\Microsoft.WindowsAPICodePack.Shell.dll" />
+    <Content Include="Installer\Product.wxs" />
+    <Content Include="Installer\Productx64.wxs" />
     <Content Include="ToDo.txt" />
     <EmbeddedResource Include="Properties\app.manifest">
       <SubType>Designer</SubType>

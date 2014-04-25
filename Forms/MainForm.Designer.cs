@@ -133,26 +133,26 @@
             this.toolStripMenuItem5,
             this.exitToolStripMenuItem1});
             this.ctxNotifyIconMenu.Name = "ctxNotifyIconMenu";
-            this.ctxNotifyIconMenu.Size = new System.Drawing.Size(217, 136);
+            this.ctxNotifyIconMenu.Size = new System.Drawing.Size(195, 126);
             // 
             // showServiceMonitorToolStripMenuItem
             // 
             this.showServiceMonitorToolStripMenuItem.Name = "showServiceMonitorToolStripMenuItem";
-            this.showServiceMonitorToolStripMenuItem.Size = new System.Drawing.Size(216, 24);
+            this.showServiceMonitorToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
             this.showServiceMonitorToolStripMenuItem.Text = "Show Services monitor";
             this.showServiceMonitorToolStripMenuItem.Click += new System.EventHandler(this.showServiceMonitorToolStripMenuItem_Click);
             // 
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(213, 6);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(191, 6);
             // 
             // startToolStripMenuItem
             // 
             this.startToolStripMenuItem.Enabled = false;
             this.startToolStripMenuItem.Image = global::SrvsTool.Properties.Resources.PLAY;
             this.startToolStripMenuItem.Name = "startToolStripMenuItem";
-            this.startToolStripMenuItem.Size = new System.Drawing.Size(216, 24);
+            this.startToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
             this.startToolStripMenuItem.Text = "Start service";
             this.startToolStripMenuItem.Click += new System.EventHandler(this.startServiceToolStripMenuItem_Click);
             // 
@@ -161,7 +161,7 @@
             this.stopToolStripMenuItem.Enabled = false;
             this.stopToolStripMenuItem.Image = global::SrvsTool.Properties.Resources.stop;
             this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
-            this.stopToolStripMenuItem.Size = new System.Drawing.Size(216, 24);
+            this.stopToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
             this.stopToolStripMenuItem.Text = "Stop service";
             this.stopToolStripMenuItem.Click += new System.EventHandler(this.stopServiceToolStripMenuItem_Click);
             // 
@@ -170,20 +170,20 @@
             this.restartToolStripMenuItem.Enabled = false;
             this.restartToolStripMenuItem.Image = global::SrvsTool.Properties.Resources.Circular_Intersection;
             this.restartToolStripMenuItem.Name = "restartToolStripMenuItem";
-            this.restartToolStripMenuItem.Size = new System.Drawing.Size(216, 24);
+            this.restartToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
             this.restartToolStripMenuItem.Text = "Restart service";
             this.restartToolStripMenuItem.Click += new System.EventHandler(this.restartServiceToolStripMenuItem_Click);
             // 
             // toolStripMenuItem5
             // 
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(213, 6);
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(191, 6);
             // 
             // exitToolStripMenuItem1
             // 
             this.exitToolStripMenuItem1.Image = global::SrvsTool.Properties.Resources.Delete1;
             this.exitToolStripMenuItem1.Name = "exitToolStripMenuItem1";
-            this.exitToolStripMenuItem1.Size = new System.Drawing.Size(216, 24);
+            this.exitToolStripMenuItem1.Size = new System.Drawing.Size(194, 22);
             this.exitToolStripMenuItem1.Text = "Exit";
             this.exitToolStripMenuItem1.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -202,9 +202,9 @@
             listViewItem1.Group = listViewGroup1;
             this.lvwServices.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
             listViewItem1});
-            this.lvwServices.Location = new System.Drawing.Point(0, 92);
+            this.lvwServices.Location = new System.Drawing.Point(0, 87);
             this.lvwServices.Name = "lvwServices";
-            this.lvwServices.Size = new System.Drawing.Size(363, 269);
+            this.lvwServices.Size = new System.Drawing.Size(363, 274);
             this.lvwServices.SmallImageList = this.imageListServiceStates;
             this.lvwServices.TabIndex = 0;
             this.lvwServices.UseCompatibleStateImageBehavior = false;
@@ -230,14 +230,14 @@
             this.enableToolStripMenuItem,
             this.disableToolStripMenuItem});
             this.servicesContextMenuStrip.Name = "servicesContextMenuStrip";
-            this.servicesContextMenuStrip.Size = new System.Drawing.Size(167, 202);
+            this.servicesContextMenuStrip.Size = new System.Drawing.Size(150, 186);
             // 
             // startServiceToolStripMenuItem
             // 
             this.startServiceToolStripMenuItem.Enabled = false;
             this.startServiceToolStripMenuItem.Image = global::SrvsTool.Properties.Resources.PLAY;
             this.startServiceToolStripMenuItem.Name = "startServiceToolStripMenuItem";
-            this.startServiceToolStripMenuItem.Size = new System.Drawing.Size(166, 24);
+            this.startServiceToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.startServiceToolStripMenuItem.Text = "Start service";
             this.startServiceToolStripMenuItem.Click += new System.EventHandler(this.startServiceToolStripMenuItem_Click);
             // 
@@ -246,7 +246,7 @@
             this.stopServiceToolStripMenuItem.Enabled = false;
             this.stopServiceToolStripMenuItem.Image = global::SrvsTool.Properties.Resources.stop;
             this.stopServiceToolStripMenuItem.Name = "stopServiceToolStripMenuItem";
-            this.stopServiceToolStripMenuItem.Size = new System.Drawing.Size(166, 24);
+            this.stopServiceToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.stopServiceToolStripMenuItem.Text = "Stop service";
             this.stopServiceToolStripMenuItem.Click += new System.EventHandler(this.stopServiceToolStripMenuItem_Click);
             // 
@@ -255,7 +255,7 @@
             this.restartServiceToolStripMenuItem.Enabled = false;
             this.restartServiceToolStripMenuItem.Image = global::SrvsTool.Properties.Resources.Circular_Intersection;
             this.restartServiceToolStripMenuItem.Name = "restartServiceToolStripMenuItem";
-            this.restartServiceToolStripMenuItem.Size = new System.Drawing.Size(166, 24);
+            this.restartServiceToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.restartServiceToolStripMenuItem.Text = "Restart service";
             this.restartServiceToolStripMenuItem.Click += new System.EventHandler(this.restartServiceToolStripMenuItem_Click);
             // 
@@ -265,33 +265,33 @@
             this.startAllToolStripMenuItem,
             this.stopAllToolStripMenuItem});
             this.batchActionsToolStripMenuItem.Name = "batchActionsToolStripMenuItem";
-            this.batchActionsToolStripMenuItem.Size = new System.Drawing.Size(166, 24);
+            this.batchActionsToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.batchActionsToolStripMenuItem.Text = "Batch actions";
             // 
             // startAllToolStripMenuItem
             // 
             this.startAllToolStripMenuItem.Name = "startAllToolStripMenuItem";
-            this.startAllToolStripMenuItem.Size = new System.Drawing.Size(124, 24);
+            this.startAllToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             this.startAllToolStripMenuItem.Text = "Start all";
             this.startAllToolStripMenuItem.Click += new System.EventHandler(this.startAllToolStripMenuItem_Click);
             // 
             // stopAllToolStripMenuItem
             // 
             this.stopAllToolStripMenuItem.Name = "stopAllToolStripMenuItem";
-            this.stopAllToolStripMenuItem.Size = new System.Drawing.Size(124, 24);
+            this.stopAllToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             this.stopAllToolStripMenuItem.Text = "Stop all";
             this.stopAllToolStripMenuItem.Click += new System.EventHandler(this.stopAllToolStripMenuItem_Click);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(163, 6);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(146, 6);
             // 
             // addToolStripMenuItem
             // 
             this.addToolStripMenuItem.Image = global::SrvsTool.Properties.Resources.Add;
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
-            this.addToolStripMenuItem.Size = new System.Drawing.Size(166, 24);
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.addToolStripMenuItem.Text = "Add";
             this.addToolStripMenuItem.Click += new System.EventHandler(this.addToolStripMenuItem_Click);
             // 
@@ -300,7 +300,7 @@
             this.removeToolStripMenuItem.Enabled = false;
             this.removeToolStripMenuItem.Image = global::SrvsTool.Properties.Resources.Remove;
             this.removeToolStripMenuItem.Name = "removeToolStripMenuItem";
-            this.removeToolStripMenuItem.Size = new System.Drawing.Size(166, 24);
+            this.removeToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.removeToolStripMenuItem.Text = "Remove";
             this.removeToolStripMenuItem.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
             // 
@@ -309,7 +309,7 @@
             this.enableToolStripMenuItem.Enabled = false;
             this.enableToolStripMenuItem.Image = global::SrvsTool.Properties.Resources.CHECKMRK;
             this.enableToolStripMenuItem.Name = "enableToolStripMenuItem";
-            this.enableToolStripMenuItem.Size = new System.Drawing.Size(166, 24);
+            this.enableToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.enableToolStripMenuItem.Text = "Enable";
             this.enableToolStripMenuItem.Click += new System.EventHandler(this.enableToolStripMenuItem_Click);
             // 
@@ -318,7 +318,7 @@
             this.disableToolStripMenuItem.Enabled = false;
             this.disableToolStripMenuItem.Image = global::SrvsTool.Properties.Resources.TRFFC13;
             this.disableToolStripMenuItem.Name = "disableToolStripMenuItem";
-            this.disableToolStripMenuItem.Size = new System.Drawing.Size(166, 24);
+            this.disableToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.disableToolStripMenuItem.Text = "Disable";
             this.disableToolStripMenuItem.Click += new System.EventHandler(this.disableToolStripMenuItem_Click);
             // 
@@ -326,12 +326,17 @@
             // 
             this.imageListServiceStates.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListServiceStates.ImageStream")));
             this.imageListServiceStates.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageListServiceStates.Images.SetKeyName(0, "Unknown.ico");
-            this.imageListServiceStates.Images.SetKeyName(1, "Running.ico");
-            this.imageListServiceStates.Images.SetKeyName(2, "Stopped.ico");
-            this.imageListServiceStates.Images.SetKeyName(3, "Busy.ico");
-            this.imageListServiceStates.Images.SetKeyName(4, "Paused.ico");
-            this.imageListServiceStates.Images.SetKeyName(5, "NOSMOKE.ico");
+            this.imageListServiceStates.Images.SetKeyName(0, "GUnknown.ico");
+            this.imageListServiceStates.Images.SetKeyName(1, "GRunning.ico");
+            this.imageListServiceStates.Images.SetKeyName(2, "GStopped.ico");
+            this.imageListServiceStates.Images.SetKeyName(3, "GBusy.ico");
+            this.imageListServiceStates.Images.SetKeyName(4, "GPaused.ico");
+            this.imageListServiceStates.Images.SetKeyName(5, "GUnknown2.ico");
+            this.imageListServiceStates.Images.SetKeyName(6, "GRunning2.ico");
+            this.imageListServiceStates.Images.SetKeyName(7, "GStopped2.ico");
+            this.imageListServiceStates.Images.SetKeyName(8, "GBusy2.ico");
+            this.imageListServiceStates.Images.SetKeyName(9, "GPaused2.ico");
+            this.imageListServiceStates.Images.SetKeyName(10, "NOSMOKE.ico");
             // 
             // statusStrip1
             // 
@@ -379,7 +384,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(363, 27);
+            this.menuStrip1.Size = new System.Drawing.Size(363, 24);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -395,14 +400,14 @@
             this.toolStripMenuItem1,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(41, 23);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "&File";
             // 
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Image = global::SrvsTool.Properties.Resources._105_59;
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(219, 24);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
             this.newToolStripMenuItem.Text = "New";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
@@ -410,7 +415,7 @@
             // 
             this.loadToolStripMenuItem.Image = global::SrvsTool.Properties.Resources.Folder_Yellow;
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(219, 24);
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
             this.loadToolStripMenuItem.Text = "Load";
             this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
             // 
@@ -418,7 +423,7 @@
             // 
             this.recentToolStripMenuItem.Image = global::SrvsTool.Properties.Resources.Favourite;
             this.recentToolStripMenuItem.Name = "recentToolStripMenuItem";
-            this.recentToolStripMenuItem.Size = new System.Drawing.Size(219, 24);
+            this.recentToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
             this.recentToolStripMenuItem.Text = "Recent";
             this.recentToolStripMenuItem.Click += new System.EventHandler(this.recentToolStripMenuItem_Click);
             // 
@@ -426,33 +431,33 @@
             // 
             this.saveAsToolStripMenuItem.Image = global::SrvsTool.Properties.Resources.Floppy_Disk_Blue;
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(219, 24);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
             this.saveAsToolStripMenuItem.Text = "Save as";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
             // toolStripMenuItemAdminSeparator
             // 
             this.toolStripMenuItemAdminSeparator.Name = "toolStripMenuItemAdminSeparator";
-            this.toolStripMenuItemAdminSeparator.Size = new System.Drawing.Size(216, 6);
+            this.toolStripMenuItemAdminSeparator.Size = new System.Drawing.Size(193, 6);
             // 
             // restartInAdminModeToolStripMenuItem
             // 
             this.restartInAdminModeToolStripMenuItem.Image = global::SrvsTool.Properties.Resources.OUTLLIBR_9825;
             this.restartInAdminModeToolStripMenuItem.Name = "restartInAdminModeToolStripMenuItem";
-            this.restartInAdminModeToolStripMenuItem.Size = new System.Drawing.Size(219, 24);
+            this.restartInAdminModeToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
             this.restartInAdminModeToolStripMenuItem.Text = "Restart in Admin mode";
             this.restartInAdminModeToolStripMenuItem.Click += new System.EventHandler(this.restartInAdminModeToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(216, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(193, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Image = global::SrvsTool.Properties.Resources.Delete1;
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(219, 24);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -468,7 +473,7 @@
             this.enableToolStripMenuItem1,
             this.disableToolStripMenuItem1});
             this.toolStripMenuItem7.Name = "toolStripMenuItem7";
-            this.toolStripMenuItem7.Size = new System.Drawing.Size(44, 23);
+            this.toolStripMenuItem7.Size = new System.Drawing.Size(39, 20);
             this.toolStripMenuItem7.Text = "&Edit";
             // 
             // startServiceToolStripMenuItem1
@@ -476,7 +481,7 @@
             this.startServiceToolStripMenuItem1.Enabled = false;
             this.startServiceToolStripMenuItem1.Image = global::SrvsTool.Properties.Resources.PLAY;
             this.startServiceToolStripMenuItem1.Name = "startServiceToolStripMenuItem1";
-            this.startServiceToolStripMenuItem1.Size = new System.Drawing.Size(172, 24);
+            this.startServiceToolStripMenuItem1.Size = new System.Drawing.Size(156, 22);
             this.startServiceToolStripMenuItem1.Text = "Start service";
             this.startServiceToolStripMenuItem1.Click += new System.EventHandler(this.startServiceToolStripMenuItem_Click);
             // 
@@ -485,29 +490,29 @@
             this.stopServiceToolStripMenuItem1.Enabled = false;
             this.stopServiceToolStripMenuItem1.Image = global::SrvsTool.Properties.Resources.stop;
             this.stopServiceToolStripMenuItem1.Name = "stopServiceToolStripMenuItem1";
-            this.stopServiceToolStripMenuItem1.Size = new System.Drawing.Size(172, 24);
+            this.stopServiceToolStripMenuItem1.Size = new System.Drawing.Size(156, 22);
             this.stopServiceToolStripMenuItem1.Text = "Stop service";
             this.stopServiceToolStripMenuItem1.Click += new System.EventHandler(this.stopServiceToolStripMenuItem_Click);
             // 
             // restartServiceToolStripMenuItem1
             // 
             this.restartServiceToolStripMenuItem1.Enabled = false;
-            this.restartServiceToolStripMenuItem1.Image = global::SrvsTool.Properties.Resources.Refresh;
+            this.restartServiceToolStripMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("restartServiceToolStripMenuItem1.Image")));
             this.restartServiceToolStripMenuItem1.Name = "restartServiceToolStripMenuItem1";
-            this.restartServiceToolStripMenuItem1.Size = new System.Drawing.Size(172, 24);
+            this.restartServiceToolStripMenuItem1.Size = new System.Drawing.Size(156, 22);
             this.restartServiceToolStripMenuItem1.Text = "Restart service";
             this.restartServiceToolStripMenuItem1.Click += new System.EventHandler(this.restartServiceToolStripMenuItem_Click);
             // 
             // toolStripMenuItem8
             // 
             this.toolStripMenuItem8.Name = "toolStripMenuItem8";
-            this.toolStripMenuItem8.Size = new System.Drawing.Size(169, 6);
+            this.toolStripMenuItem8.Size = new System.Drawing.Size(153, 6);
             // 
             // addToolStripMenuItem1
             // 
             this.addToolStripMenuItem1.Image = global::SrvsTool.Properties.Resources.Add;
             this.addToolStripMenuItem1.Name = "addToolStripMenuItem1";
-            this.addToolStripMenuItem1.Size = new System.Drawing.Size(172, 24);
+            this.addToolStripMenuItem1.Size = new System.Drawing.Size(156, 22);
             this.addToolStripMenuItem1.Text = "Add service";
             this.addToolStripMenuItem1.Click += new System.EventHandler(this.addToolStripMenuItem_Click);
             // 
@@ -515,7 +520,7 @@
             // 
             this.removeToolStripMenuItem1.Image = global::SrvsTool.Properties.Resources.Remove;
             this.removeToolStripMenuItem1.Name = "removeToolStripMenuItem1";
-            this.removeToolStripMenuItem1.Size = new System.Drawing.Size(172, 24);
+            this.removeToolStripMenuItem1.Size = new System.Drawing.Size(156, 22);
             this.removeToolStripMenuItem1.Text = "Remove service";
             this.removeToolStripMenuItem1.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
             // 
@@ -523,7 +528,7 @@
             // 
             this.enableToolStripMenuItem1.Image = global::SrvsTool.Properties.Resources.CHECKMRK;
             this.enableToolStripMenuItem1.Name = "enableToolStripMenuItem1";
-            this.enableToolStripMenuItem1.Size = new System.Drawing.Size(172, 24);
+            this.enableToolStripMenuItem1.Size = new System.Drawing.Size(156, 22);
             this.enableToolStripMenuItem1.Text = "Enable polling";
             this.enableToolStripMenuItem1.Click += new System.EventHandler(this.enableToolStripMenuItem_Click);
             // 
@@ -531,7 +536,7 @@
             // 
             this.disableToolStripMenuItem1.Image = global::SrvsTool.Properties.Resources.TRFFC13;
             this.disableToolStripMenuItem1.Name = "disableToolStripMenuItem1";
-            this.disableToolStripMenuItem1.Size = new System.Drawing.Size(172, 24);
+            this.disableToolStripMenuItem1.Size = new System.Drawing.Size(156, 22);
             this.disableToolStripMenuItem1.Text = "Disable polling";
             this.disableToolStripMenuItem1.Click += new System.EventHandler(this.disableToolStripMenuItem_Click);
             // 
@@ -542,20 +547,20 @@
             this.refreshToolStripMenuItem,
             this.autoRefreshToolStripMenuItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(50, 23);
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.viewToolStripMenuItem.Text = "&View";
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(151, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(149, 6);
             // 
             // refreshToolStripMenuItem
             // 
-            this.refreshToolStripMenuItem.Image = global::SrvsTool.Properties.Resources.recycle;
+            this.refreshToolStripMenuItem.Image = global::SrvsTool.Properties.Resources.Refresh;
             this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
             this.refreshToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(154, 24);
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.refreshToolStripMenuItem.Text = "&Refresh";
             this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
             // 
@@ -565,7 +570,7 @@
             this.autoRefreshToolStripMenuItem.CheckOnClick = true;
             this.autoRefreshToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.autoRefreshToolStripMenuItem.Name = "autoRefreshToolStripMenuItem";
-            this.autoRefreshToolStripMenuItem.Size = new System.Drawing.Size(154, 24);
+            this.autoRefreshToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.autoRefreshToolStripMenuItem.Text = "Auto refresh";
             this.autoRefreshToolStripMenuItem.Click += new System.EventHandler(this.autoRefreshToolStripMenuItem_Click);
             // 
@@ -577,14 +582,14 @@
             this.toolStripMenuItem6,
             this.optionsToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(53, 23);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
             this.toolsToolStripMenuItem.Text = "&Tools";
             // 
             // servicesMmcToolStripMenuItem
             // 
             this.servicesMmcToolStripMenuItem.Image = global::SrvsTool.Properties.Resources.options;
             this.servicesMmcToolStripMenuItem.Name = "servicesMmcToolStripMenuItem";
-            this.servicesMmcToolStripMenuItem.Size = new System.Drawing.Size(160, 24);
+            this.servicesMmcToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.servicesMmcToolStripMenuItem.Text = "Services mmc";
             this.servicesMmcToolStripMenuItem.Click += new System.EventHandler(this.servicesMmcToolStripMenuItem_Click);
             // 
@@ -592,20 +597,20 @@
             // 
             this.eventlogToolStripMenuItem.Image = global::SrvsTool.Properties.Resources.Eventlog;
             this.eventlogToolStripMenuItem.Name = "eventlogToolStripMenuItem";
-            this.eventlogToolStripMenuItem.Size = new System.Drawing.Size(160, 24);
+            this.eventlogToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.eventlogToolStripMenuItem.Text = "Eventlog";
             this.eventlogToolStripMenuItem.Click += new System.EventHandler(this.eventlogToolStripMenuItem_Click);
             // 
             // toolStripMenuItem6
             // 
             this.toolStripMenuItem6.Name = "toolStripMenuItem6";
-            this.toolStripMenuItem6.Size = new System.Drawing.Size(157, 6);
+            this.toolStripMenuItem6.Size = new System.Drawing.Size(144, 6);
             // 
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.Image = global::SrvsTool.Properties.Resources.Wrench;
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(160, 24);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.optionsToolStripMenuItem.Text = "&Options";
             this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
             // 
@@ -615,14 +620,14 @@
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.aboutToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(49, 23);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "&Help";
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Image = global::SrvsTool.Properties.Resources.About;
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(116, 24);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -642,7 +647,7 @@
             this.toolStripButton4,
             this.toolStripButtonAdd,
             this.toolStripButtonRemove});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 27);
+            this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Padding = new System.Windows.Forms.Padding(5, 2, 1, 2);
             this.toolStrip1.Size = new System.Drawing.Size(363, 35);
@@ -682,7 +687,7 @@
             // toolStripButtonRefresh
             // 
             this.toolStripButtonRefresh.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonRefresh.Image = global::SrvsTool.Properties.Resources.recycle;
+            this.toolStripButtonRefresh.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonRefresh.Image")));
             this.toolStripButtonRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonRefresh.Name = "toolStripButtonRefresh";
             this.toolStripButtonRefresh.Size = new System.Drawing.Size(28, 28);
@@ -775,9 +780,9 @@
             this.cboQuickLoad.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboQuickLoad.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.78182F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboQuickLoad.FormattingEnabled = true;
-            this.cboQuickLoad.Location = new System.Drawing.Point(0, 62);
+            this.cboQuickLoad.Location = new System.Drawing.Point(0, 59);
             this.cboQuickLoad.Name = "cboQuickLoad";
-            this.cboQuickLoad.Size = new System.Drawing.Size(363, 30);
+            this.cboQuickLoad.Size = new System.Drawing.Size(363, 28);
             this.cboQuickLoad.TabIndex = 4;
             this.toolTip1.SetToolTip(this.cboQuickLoad, "Quick load");
             this.cboQuickLoad.SelectedIndexChanged += new System.EventHandler(this.cboQuickLoad_SelectedIndexChanged);

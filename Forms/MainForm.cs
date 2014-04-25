@@ -1048,19 +1048,19 @@ namespace SrvsTool
             try
             {
                 if (iImage == Status.Running)
-                    myIcon = new Icon(GetType(), "icons.Running.ico");
+                    myIcon = new Icon(GetType(), "icons.GRunning.ico");
                 else if (iImage == Status.Busy)
-                    myIcon = new Icon(GetType(), "icons.Busy.ico");
+                    myIcon = new Icon(GetType(), "icons.GBusy.ico");
                 else if (iImage == Status.Stopped)
-                    myIcon = new Icon(GetType(), "icons.Stopped.ico");
+                    myIcon = new Icon(GetType(), "icons.GStopped.ico");
                 else if (iImage == Status.Paused)
-                    myIcon = new Icon(GetType(), "icons.Paused.ico");
+                    myIcon = new Icon(GetType(), "icons.GPaused.ico");
                 else if (iImage == Status.Disabled)
                     myIcon = new Icon(GetType(), "icons.NOSMOKE.ico");
                 else if (iImage == Status.Mix)
-                    myIcon = new Icon(GetType(), "icons.Mix.ico");
+                    myIcon = new Icon(GetType(), "icons.GMix.ico");
                 else
-                    myIcon = new Icon(GetType(), "icons.Unknown.ico");
+                    myIcon = new Icon(GetType(), "icons.GUnknown.ico");
 
                 //NotifyIcon text must be less than 64 characters long... NotifyIcon limitation
                 if (theText.Length >= 61)
@@ -1087,11 +1087,40 @@ namespace SrvsTool
             if (!serviceQueryEngineAsync.IsBusy)
             {
                 mainTimer.Enabled = false;
+                SetIconsToBusyUpdating();                
                 Cursor.Current = Cursors.WaitCursor;
                 //Call asynchronous refreshing method
                 serviceQueryEngineAsync.RefreshServiceListAsync(currentServices);
                 tsbStatus.Text = "Refreshing";
             }
+        }
+
+        private void SetIconsToBusyUpdating()
+        {
+            foreach (ListViewItem lvi in lvwServices.Items)
+            {
+                if (lvi.ImageIndex == 0)
+                {
+                    lvi.ImageIndex = 5;
+                }
+                else if (lvi.ImageIndex == 1)
+                {
+                    lvi.ImageIndex = 6;
+                }
+                else if (lvi.ImageIndex == 2)
+                {
+                    lvi.ImageIndex = 7;
+                }
+                else if (lvi.ImageIndex == 3)
+                {
+                    lvi.ImageIndex = 8;
+                }
+                else if (lvi.ImageIndex == 5)
+                {
+                    lvi.ImageIndex = 9;
+                }
+            }
+            Application.DoEvents();         
         }
         /// <summary>
         /// Update Listview with latest statusses in currentServices
@@ -1152,8 +1181,7 @@ namespace SrvsTool
                                     {
                                         sdi.Enabled = false;
                                         SetListViewIcon(lvi, Status.Disabled);
-                                    }
-                                    
+                                    }                                    
                                 }
                             }
                             catch

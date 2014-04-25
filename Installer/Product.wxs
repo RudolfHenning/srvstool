@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
+  <Product Id="*" Name="Services Monitor 3" Language="1033" Version="3.0.0425.2014" Manufacturer="Hen IT"
+       UpgradeCode="59162023-5478-4668-A278-53461C300000">
+    <Package Id='*' Keywords='Installer' Description="Services Monitor 3 Installer" Comments='Services Monitor is a simple tool for managing Windows services' 
+       Manufacturer='Hen IT' InstallerVersion='200' Languages='1033' Compressed='yes' SummaryCodepage='1252' />
+
+    <Feature Id="ProductFeature" Title="Services Monitor 3" Level="1" Description="Services Monitor 3" Display="expand" ConfigurableDirectory="INSTALLLOCATION">
+      <ComponentRef Id='ProductComponent' />
+      <ComponentRef Id='ServicesMonConfigFiles' />
+      <ComponentRef Id='ProgramMenuDir' />
+    </Feature>
+
+    <MajorUpgrade       
+      AllowSameVersionUpgrades="yes"
+      DowngradeErrorMessage="A later version of [ProductName] is already installed. Setup will now exit." /> 
+
+    <Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLLOCATIONCOMP" Name="Hen IT">
+          <Directory Id="INSTALLLOCATION" Name="Services Monitor 3">
+            <Component Id="ProductComponent" Guid="59162023-5478-4668-A278-53461C300001">
+              <File Id="ServicesMonEXE" Name="SrvsTool.exe" Source="SrvsTool.exe" KeyPath="yes">
+                <Shortcut Id="startmenuServicesMon3" Directory="ProgramMenuDir" Name="Services Monitor 3"
+													WorkingDirectory="INSTALLDIR" Icon="SrvsTool.exe" IconIndex="0" Advertise="yes" />
+              </File>
+              <ProgId Id="ServicesMon3" Advertise="yes">
+                <Extension Id="srvlst" Advertise="yes" ContentType="application/text">
+                  <Verb Id="open" Sequence="10" Command="Open"  Argument="&quot;%1&quot;" />
+                </Extension>
+              </ProgId>              
+              <File Id="MicrosoftWindowsAPICodePackDll" Name="Microsoft.WindowsAPICodePack.dll" Source="Microsoft.WindowsAPICodePack.dll" KeyPath="no" />
+              <File Id="MicrosoftWindowsAPICodePackShellDll" Name="Microsoft.WindowsAPICodePack.Shell.dll" Source="Microsoft.WindowsAPICodePack.Shell.dll" KeyPath="no" />
+              
+            </Component>
+            <Component Id="ServicesMonConfigFiles" Guid="59162023-5478-4668-A278-53461C300002" NeverOverwrite="yes" Permanent="yes">
+              <File Id="SrvsToolExeConfig" Name="SrvsTool.exe.config" Source="SrvsTool.exe.config" KeyPath="no" />
+            </Component>
+          </Directory>
+        </Directory>
+      </Directory>
+      <Directory Id="ProgramMenuFolder" Name="Programs">
+        <Directory Id="ProgramMenuDir" Name="Services Monitor 3">
+          <Component Id="ProgramMenuDir" Guid="59162023-5478-4668-A278-53461C300003">
+            <RemoveFolder Id='ProgramMenuDir' On='uninstall' />
+            <RegistryValue Root='HKCU' Key='Software\Hen IT\Services Monitor 3' Type='string' Value='' KeyPath='yes' />
+          </Component>
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <Icon Id="SrvsTool.exe" SourceFile="SrvsTool.exe" />
+    <Property Id="ARPPRODUCTICON" Value="SrvsTool.exe" />
+
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLLOCATION" ></Property>
+    <!--<UIRef Id="WixUI_InstallDir" />-->
+
+    <PropertyRef Id="NETFRAMEWORK40FULL"/>
+    <Condition Message="This setup requires the .NET Framework 4.0 (Client) to be installed.">
+      <![CDATA[Installed OR NETFRAMEWORK40FULL]]>
+    </Condition>
+
+    <UI>
+      <UIRef Id="WixUI_InstallDir" />
+
+      <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="InstallDirDlg" Order="2">1</Publish>
+      <Publish Dialog="InstallDirDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg" Order="2">1</Publish>
+
+      <!-- Show Launch app checkbox -->
+      <Publish Dialog="ExitDialog" Control="Finish" Event="DoAction"
+          Value="LaunchApplication">WIXUI_EXITDIALOGOPTIONALCHECKBOX = 1 and NOT Installed</Publish>
+    </UI>
+    <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT" Value="Launch Services Monitor 3" />
+    <!-- Step 3: Include the custom action -->
+    <Property Id="WixShellExecTarget" Value="[#ServicesMonEXE]" />
+    <CustomAction Id="LaunchApplication"
+        BinaryKey="WixCA"
+        DllEntry="WixShellExec"
+        Impersonate="yes" />
+
+    <WixVariable Id="WixUIBannerBmp" Value="InstallBanner.bmp" />
+    <WixVariable Id="WixUIDialogBmp" Value="DialogBkground.bmp" />
+  </Product>
+</Wix>
