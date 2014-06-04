@@ -157,9 +157,7 @@ namespace SrvsTool
                     }
                     catch { }
                 });
-            SnappingEnabled = true;
-
-            
+            SnappingEnabled = true;            
         }
 
 
@@ -178,29 +176,36 @@ namespace SrvsTool
         }
         private void MainForm_Shown(object sender, EventArgs e)
         {
-            if (System.Environment.OSVersion.Version.Major > 6 || (System.Environment.OSVersion.Version.Major == 6 && System.Environment.OSVersion.Version.Minor == 1))
+            try
             {
-                // Path to Windows system folder
-                string systemFolder = Environment.GetFolderPath(Environment.SpecialFolder.System);
-                JumpListCustomCategory jumplistCatTools = new JumpListCustomCategory("Extra Tools");
-
-                // create a new taskbar jump list for the main window
-                jumpList = JumpList.CreateJumpList();
-                jumpList.AddCustomCategories(jumplistCatTools);
-
-                // Add tools
-                jumplistCatTools.AddJumpListItems(new JumpListLink(System.IO.Path.Combine(systemFolder, "eventvwr.msc"), "Event viewer")
+                if (System.Environment.OSVersion.Version.Major > 6 || (System.Environment.OSVersion.Version.Major == 6 && System.Environment.OSVersion.Version.Minor == 1))
                 {
-                    IconReference = new Microsoft.WindowsAPICodePack.Shell.IconReference(System.IO.Path.Combine(systemFolder, "mmc.exe"), 0)
-                });
-                jumplistCatTools.AddJumpListItems(new JumpListLink(System.IO.Path.Combine(systemFolder, "services.msc"), "Services manager")
-                {
-                    IconReference = new Microsoft.WindowsAPICodePack.Shell.IconReference(System.IO.Path.Combine(systemFolder, "mmc.exe"), 0)
-                });
+                    // Path to Windows system folder
+                    string systemFolder = Environment.GetFolderPath(Environment.SpecialFolder.System);
+                    JumpListCustomCategory jumplistCatTools = new JumpListCustomCategory("Extra Tools");
 
-                jumpList.AddUserTasks(new JumpListSeparator());
-                jumpList.KnownCategoryToDisplay = JumpListKnownCategoryType.Recent;
-                jumpList.Refresh();
+                    // create a new taskbar jump list for the main window
+                    jumpList = JumpList.CreateJumpList();
+                    jumpList.AddCustomCategories(jumplistCatTools);
+
+                    // Add tools
+                    jumplistCatTools.AddJumpListItems(new JumpListLink(System.IO.Path.Combine(systemFolder, "eventvwr.msc"), "Event viewer")
+                    {
+                        IconReference = new Microsoft.WindowsAPICodePack.Shell.IconReference(System.IO.Path.Combine(systemFolder, "mmc.exe"), 0)
+                    });
+                    jumplistCatTools.AddJumpListItems(new JumpListLink(System.IO.Path.Combine(systemFolder, "services.msc"), "Services manager")
+                    {
+                        IconReference = new Microsoft.WindowsAPICodePack.Shell.IconReference(System.IO.Path.Combine(systemFolder, "mmc.exe"), 0)
+                    });
+
+                    jumpList.AddUserTasks(new JumpListSeparator());
+                    jumpList.KnownCategoryToDisplay = JumpListKnownCategoryType.Recent;
+                    jumpList.Refresh();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         #endregion
