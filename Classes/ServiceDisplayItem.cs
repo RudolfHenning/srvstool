@@ -17,6 +17,7 @@ namespace SrvsTool
         public string HostName { get; set; }
         public bool Enabled { get; set; }
         public string DisplayName { get; set; }
+        public string NextAction { get; set; }
 
         public ServiceControllerStatusEx LastStatus { get; set; }
 
@@ -42,17 +43,29 @@ namespace SrvsTool
         }
         public static bool operator == (ServiceDisplayItem sdi1, ServiceDisplayItem sdi2)
         {
-            string string1 = sdi1.HostName + sdi1.DisplayName;
-            string string2 = sdi2.HostName + sdi2.DisplayName;
-
-            return string1 == string2;
+            try
+            {
+                string string1 = sdi1.HostName + sdi1.DisplayName;
+                string string2 = sdi2.HostName + sdi2.DisplayName;
+                return string1 == string2;
+            }
+            catch
+            {
+                return false;
+            }
         }
         public static bool operator != (ServiceDisplayItem sdi1, ServiceDisplayItem sdi2)
         {
-            string string1 = sdi1.HostName + sdi1.DisplayName;
-            string string2 = sdi2.HostName + sdi2.DisplayName;
-
-            return string1 != string2;
+            try
+            {
+                string string1 = sdi1.HostName + sdi1.DisplayName;
+                string string2 = sdi2.HostName + sdi2.DisplayName;
+                return string1 != string2;
+            }
+            catch
+            {
+                return true;
+            }
         }
         public override int GetHashCode()
         {
