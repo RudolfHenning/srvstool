@@ -73,11 +73,12 @@
             // logoPictureBox
             // 
             this.logoPictureBox.BackColor = System.Drawing.Color.White;
+            this.logoPictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.logoPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("logoPictureBox.Image")));
             this.logoPictureBox.Location = new System.Drawing.Point(3, 3);
             this.logoPictureBox.Name = "logoPictureBox";
             this.tableLayoutPanel.SetRowSpan(this.logoPictureBox, 6);
-            this.logoPictureBox.Size = new System.Drawing.Size(131, 149);
+            this.logoPictureBox.Size = new System.Drawing.Size(135, 185);
             this.logoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.logoPictureBox.TabIndex = 12;
             this.logoPictureBox.TabStop = false;
@@ -174,7 +175,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AboutWindow";
-            this.Opacity = 0.6;
+            this.Opacity = 0.6D;
             this.Padding = new System.Windows.Forms.Padding(9);
             this.ShowIcon = false;
             this.ShowInTaskbar = false;

@@ -44,18 +44,18 @@ namespace SrvsTool
             List<ServiceDisplayItem> serviceList = (List<ServiceDisplayItem>)objList;            
             foreach (ServiceDisplayItem sdi in serviceList)
             {
-                sdi.LastStatus = ServiceControllerStatusEx.Unknown;
+                if (sdi != null)    
+                    sdi.LastStatus = ServiceControllerStatusEx.Unknown;
             }
 
             foreach (string hostName in (from ServiceDisplayItem s in serviceList
-                                         where s.Enabled
+                                         where s != null && s.Enabled
                                          group s by s.HostName into h
                                          select h.Key))
             {
                 try
                 {
                     ServiceController[] queriedServices = ServiceController.GetServices(hostName);
-
                     foreach (ServiceDisplayItem sdi in (from s in serviceList
                                                         where s.HostName == hostName
                                                         select s))

@@ -9,6 +9,8 @@ using System.Diagnostics;
 using Microsoft.WindowsAPICodePack.Taskbar;
 using MS.WindowsAPICodePack.Internal;
 using System.Security.Principal;
+using HenIT.Security;
+using System.Text;
 
 namespace SrvsTool
 {
@@ -25,6 +27,7 @@ namespace SrvsTool
         //private string appId = "Services monitor";
         public string StartupServicesListFile { get; set; }
         public string StartUpAction { get; set; }
+        public List<string> StartUpActions { get; set; }
         public string StartUpService { get; set; }
         public string StartUpMachine { get; set; }
         #endregion
@@ -112,32 +115,58 @@ namespace SrvsTool
                     {
                         EnableServiceStateChangeProgress();
                         DisableServiceStateChangeProgress();
-                        
+
                         RefreshSrvsInList();
                         LoadQuickLoadList();
-                        if (StartUpAction.Length > 0)
+                        //if (StartUpAction.Length > 0)
+                        //{
+                        //    PerformStartupAction();
+                        //}
+                    }
+                    catch { }
+
+                    try
+                    {
+                        if (StartUpActions!= null && StartUpActions.Count > 0)
                         {
-                            PerformStartupAction();
+                            this.Invoke((MethodInvoker)delegate
+                            {
+                                this.TopMost = true;
+                                Application.DoEvents();
+                                this.TopMost = false;
+                            });
+                            List<ServiceDisplayItem> startServices = new List<ServiceDisplayItem>();
+                            foreach (string sua in StartUpActions)
+                            {
+                                if (sua.Contains('|'))
+                                {
+                                    string[] sarr = sua.Split('|');
+                                    if (sarr.Length == 3)
+                                    {
+                                        ServiceDisplayItem sdi = new ServiceDisplayItem();
+                                        sdi.NextAction = sarr[0];
+                                        sdi.HostName = sarr[1];
+                                        sdi.ServiceName = sarr[2];
+                                        sdi.Enabled = true;
+                                        startServices.Add(sdi);
+                                    }
+                                }
+                            }
+                            PerformServicesAction(startServices);
                         }
                     }
                     catch { }
                 });
             SnappingEnabled = true;
+
+            
         }
+
+
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             mainNotifyIcon.Visible = false;
-            if (WindowState == FormWindowState.Normal)
-            {
-                Properties.Settings.Default.MainWindowLocation = this.Location;
-                Properties.Settings.Default.MainWindowSize = this.Size;
-            }
-            Properties.Settings.Default.Save();
-
-            if (lvwServices.Items.Count > 0)
-            {
-                SaveServiceListFile(Properties.Settings.Default.LastServiceListFile);
-            }
+            SaveAllSettingForClose();
         }
         private void Form1_Resize(object sender, EventArgs e)
         {
@@ -149,7 +178,7 @@ namespace SrvsTool
         }
         private void MainForm_Shown(object sender, EventArgs e)
         {
-            if (CoreHelpers.RunningOnWin7)
+            if (System.Environment.OSVersion.Version.Major > 6 || (System.Environment.OSVersion.Version.Major == 6 && System.Environment.OSVersion.Version.Minor == 1))
             {
                 // Path to Windows system folder
                 string systemFolder = Environment.GetFolderPath(Environment.SpecialFolder.System);
@@ -214,8 +243,15 @@ namespace SrvsTool
         }
         private void restartInAdminModeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!IsAdmin())
-                RestartInAdminMode("","","");
+            
+            if (!AdminModeTools.IsInAdminMode())
+            {
+                Properties.Settings.Default.Save();
+                AdminModeTools.RestartInAdminMode();    
+            }
+
+            //if (!IsAdmin())
+            //    RestartInAdminMode("","","");
         }
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -400,7 +436,7 @@ namespace SrvsTool
         }
         private void EnableServiceStateChangeProgress()
         {
-            if (CoreHelpers.RunningOnWin7)
+            if (System.Environment.OSVersion.Version.Major > 6 || (System.Environment.OSVersion.Version.Major == 6 && System.Environment.OSVersion.Version.Minor == 1))
             {
                 TaskbarProgressBarState state = TaskbarProgressBarState.Indeterminate;
                 windowsTaskbar.SetProgressState(state);
@@ -408,7 +444,7 @@ namespace SrvsTool
         }
         private void DisableServiceStateChangeProgress()
         {
-            if (CoreHelpers.RunningOnWin7)
+            if (System.Environment.OSVersion.Version.Major > 6 || (System.Environment.OSVersion.Version.Major == 6 && System.Environment.OSVersion.Version.Minor == 1))
             {
                 TaskbarProgressBarState state = TaskbarProgressBarState.NoProgress;
                 windowsTaskbar.SetProgressState(state);
@@ -421,71 +457,82 @@ namespace SrvsTool
             try
             {
                 Cursor.Current = Cursors.WaitCursor;
-                WaitForServiceChange waitForServiceChange;
-                EnableServiceStateChangeProgress();
+                List<ServiceDisplayItem> servicesToAction = new List<ServiceDisplayItem>();
                 foreach (ListViewItem lvi in lvwServices.SelectedItems)
                 {
                     ServiceDisplayItem sdi = (ServiceDisplayItem)lvi.Tag;
-                    IServiceControllerEx service = ServiceQueryFactory.GetService(serviceQueryType, sdi.HostName, sdi.ServiceName);
-                    SetNotifyIcon(Status.Busy, "Starting " + service.DisplayName);
-
-                    waitForServiceChange = new WaitForServiceChange();
-                    waitForServiceChange.SetWindowSize("Starting: " + service.DisplayName);
-                    waitForServiceChange.Show("Starting service", "Starting: " + service.DisplayName);
-
-                    if (service.Status == ServiceControllerStatus.Stopped)
-                    {
-                        SetListViewIcon(lvi, Status.Busy);
-
-                        tsbStatus.Text = "Starting " + service.DisplayName;
-                        Application.DoEvents();
-                        Cursor.Current = Cursors.WaitCursor;
-                        try
-                        {
-                            service.Start();
-                            DateTime begin = DateTime.Now;
-                            while ((service.Status != ServiceControllerStatus.Running) &&
-                                    (((TimeSpan)DateTime.Now.Subtract(begin)).TotalSeconds < 30))
-                            {
-                                service.Refresh();
-                                Application.DoEvents();
-                                Cursor.Current = Cursors.WaitCursor;
-                                Thread.Sleep(500);
-                            }
-                            SetListViewIcon(lvi, Status.Running);
-                        }
-                        catch (InvalidOperationException iex)
-                        {
-                            try { waitForServiceChange.Close(); }
-                            catch { }
-#if DEBUG
-                            MessageBox.Show(iex.ToString());
-#endif                            
-                            if (iex.Message.Contains("Cannot open"))
-                            {
-                                RestartInAdminMode("start", service.DisplayName, service.MachineName);
-                                return;
-                            }
-                            else
-                                SetListViewIcon(lvi, Status.Unknown);
-                        }
-                        catch (UnauthorizedAccessException)
-                        {
-                            RestartInAdminMode("start", service.DisplayName, service.MachineName);
-                        }
-                        catch (Exception ex)
-                        {
-#if DEBUG
-                            MessageBox.Show(ex.ToString());
-#endif
-                            SetListViewIcon(lvi, Status.Unknown);
-                        }
-                    }
-                    tsbStatus.Text = "Started " + service.DisplayName;
-                    if (waitForServiceChange.Visible)
-                        waitForServiceChange.Close();
-                    waitForServiceChange = null;
+                    sdi.NextAction = "start";
+                    servicesToAction.Add(sdi);
                 }
+
+                PerformServicesAction(servicesToAction);
+                Application.DoEvents();
+
+//                WaitForServiceChange waitForServiceChange;
+//                EnableServiceStateChangeProgress();
+//                foreach (ListViewItem lvi in lvwServices.SelectedItems)
+//                {
+//                    ServiceDisplayItem sdi = (ServiceDisplayItem)lvi.Tag;
+//                    IServiceControllerEx service = ServiceQueryFactory.GetService(serviceQueryType, sdi.HostName, sdi.ServiceName);
+//                    SetNotifyIcon(Status.Busy, "Starting " + service.DisplayName);
+
+//                    waitForServiceChange = new WaitForServiceChange();
+//                    waitForServiceChange.SetWindowSize("Starting: " + service.DisplayName);
+//                    waitForServiceChange.Show("Starting service", "Starting: " + service.DisplayName);
+
+//                    if (service.Status == ServiceControllerStatus.Stopped)
+//                    {
+//                        SetListViewIcon(lvi, Status.Busy);
+
+//                        tsbStatus.Text = "Starting " + service.DisplayName;
+//                        Application.DoEvents();
+//                        Cursor.Current = Cursors.WaitCursor;
+//                        try
+//                        {
+//                            service.Start();
+//                            DateTime begin = DateTime.Now;
+//                            while ((service.Status != ServiceControllerStatus.Running) &&
+//                                    (((TimeSpan)DateTime.Now.Subtract(begin)).TotalSeconds < 30))
+//                            {
+//                                service.Refresh();
+//                                Application.DoEvents();
+//                                Cursor.Current = Cursors.WaitCursor;
+//                                Thread.Sleep(500);
+//                            }
+//                            SetListViewIcon(lvi, Status.Running);
+//                        }
+//                        catch (InvalidOperationException iex)
+//                        {
+//                            try { waitForServiceChange.Close(); }
+//                            catch { }
+//#if DEBUG
+//                            MessageBox.Show(iex.ToString());
+//#endif                            
+//                            if (iex.Message.Contains("Cannot open"))
+//                            {
+//                                RestartInAdminMode("start", service.DisplayName, service.MachineName);
+//                                return;
+//                            }
+//                            else
+//                                SetListViewIcon(lvi, Status.Unknown);
+//                        }
+//                        catch (UnauthorizedAccessException)
+//                        {
+//                            RestartInAdminMode("start", service.DisplayName, service.MachineName);
+//                        }
+//                        catch (Exception ex)
+//                        {
+//#if DEBUG
+//                            MessageBox.Show(ex.ToString());
+//#endif
+//                            SetListViewIcon(lvi, Status.Unknown);
+//                        }
+//                    }
+//                    tsbStatus.Text = "Started " + service.DisplayName;
+//                    if (waitForServiceChange.Visible)
+//                        waitForServiceChange.Close();
+//                    waitForServiceChange = null;
+//                }
                 //UpdateServiceStatusses();
                 RefreshSrvsInList();
                 SetServiceMenuItemsEnable();
@@ -508,73 +555,89 @@ namespace SrvsTool
             try
             {
                 Cursor.Current = Cursors.WaitCursor;
-                WaitForServiceChange waitForServiceChange;
-                EnableServiceStateChangeProgress();
+                List<ServiceDisplayItem> servicesToAction = new List<ServiceDisplayItem>();
                 foreach (ListViewItem lvi in lvwServices.SelectedItems)
                 {
                     ServiceDisplayItem sdi = (ServiceDisplayItem)lvi.Tag;
-                    IServiceControllerEx service = ServiceQueryFactory.GetService(serviceQueryType, sdi.HostName, sdi.ServiceName);
-                    SetNotifyIcon(Status.Busy, "Stopping " + service.DisplayName);
-                    waitForServiceChange = new WaitForServiceChange();
-                    waitForServiceChange.SetWindowSize("Stopping: " + service.DisplayName);
-                    waitForServiceChange.Show("Stopping service", "Stopping: " + service.DisplayName);
-                    //serviceStatusChange = new ServiceStatusChange();
-                    //serviceStatusChange.Show("Stopping service", "Service: " + service.DisplayName);
-
-                    if (service.Status == ServiceControllerStatus.Running)
-                    {
-                        SetListViewIcon(lvi, Status.Busy);
-
-                        tsbStatus.Text = "Stopping " + service.DisplayName;
-                        Application.DoEvents();
-                        Cursor.Current = Cursors.WaitCursor;
-                        try
-                        {
-                            service.Stop();
-                            DateTime begin = DateTime.Now;
-                            while ((service.Status != ServiceControllerStatus.Stopped) &&
-                                    (((TimeSpan)DateTime.Now.Subtract(begin)).TotalSeconds < 30))
-                            {
-                                service.Refresh();
-                                Application.DoEvents();
-                                Cursor.Current = Cursors.WaitCursor;
-                                Thread.Sleep(500);
-                            }
-                            SetListViewIcon(lvi, Status.Stopped);
-                        }
-                        catch (InvalidOperationException iex)
-                        {
-                            try { waitForServiceChange.Close(); }
-                            catch { }
-#if DEBUG
-                            MessageBox.Show(iex.ToString());
-#endif
-                           
-                            if (iex.Message.Contains("Cannot open"))
-                            {
-                                RestartInAdminMode("stop", service.DisplayName, service.MachineName);
-                                return;
-                            }
-                            else
-                                SetListViewIcon(lvi, Status.Unknown);
-                        }
-                        catch (UnauthorizedAccessException)
-                        {
-                            RestartInAdminMode("stop", service.DisplayName, service.MachineName);
-                        }
-                        catch (Exception ex)
-                        {
-#if DEBUG
-                            MessageBox.Show(ex.ToString());
-#endif
-                            SetListViewIcon(lvi, Status.Unknown);
-                        }
-                    }
-                    tsbStatus.Text = "Stopped " + service.DisplayName;
-                    if (waitForServiceChange.Visible)
-                        waitForServiceChange.Close();
-                    waitForServiceChange = null;
+                    sdi.NextAction = "stop";
+                    servicesToAction.Add(sdi);
                 }
+
+                PerformServicesAction(servicesToAction);
+                Application.DoEvents();
+
+//            if (lvwServices.SelectedItems.Count == 0)
+//                return;
+//            try
+//            {
+//                Cursor.Current = Cursors.WaitCursor;
+//                WaitForServiceChange waitForServiceChange;
+//                EnableServiceStateChangeProgress();
+//                foreach (ListViewItem lvi in lvwServices.SelectedItems)
+//                {
+//                    ServiceDisplayItem sdi = (ServiceDisplayItem)lvi.Tag;
+//                    IServiceControllerEx service = ServiceQueryFactory.GetService(serviceQueryType, sdi.HostName, sdi.ServiceName);
+//                    SetNotifyIcon(Status.Busy, "Stopping " + service.DisplayName);
+//                    waitForServiceChange = new WaitForServiceChange();
+//                    waitForServiceChange.SetWindowSize("Stopping: " + service.DisplayName);
+//                    waitForServiceChange.Show("Stopping service", "Stopping: " + service.DisplayName);
+//                    //serviceStatusChange = new ServiceStatusChange();
+//                    //serviceStatusChange.Show("Stopping service", "Service: " + service.DisplayName);
+
+//                    if (service.Status == ServiceControllerStatus.Running)
+//                    {
+//                        SetListViewIcon(lvi, Status.Busy);
+
+//                        tsbStatus.Text = "Stopping " + service.DisplayName;
+//                        Application.DoEvents();
+//                        Cursor.Current = Cursors.WaitCursor;
+//                        try
+//                        {
+//                            service.Stop();
+//                            DateTime begin = DateTime.Now;
+//                            while ((service.Status != ServiceControllerStatus.Stopped) &&
+//                                    (((TimeSpan)DateTime.Now.Subtract(begin)).TotalSeconds < 30))
+//                            {
+//                                service.Refresh();
+//                                Application.DoEvents();
+//                                Cursor.Current = Cursors.WaitCursor;
+//                                Thread.Sleep(500);
+//                            }
+//                            SetListViewIcon(lvi, Status.Stopped);
+//                        }
+//                        catch (InvalidOperationException iex)
+//                        {
+//                            try { waitForServiceChange.Close(); }
+//                            catch { }
+//#if DEBUG
+//                            MessageBox.Show(iex.ToString());
+//#endif
+                           
+//                            if (iex.Message.Contains("Cannot open"))
+//                            {
+//                                RestartInAdminMode("stop", service.DisplayName, service.MachineName);
+//                                return;
+//                            }
+//                            else
+//                                SetListViewIcon(lvi, Status.Unknown);
+//                        }
+//                        catch (UnauthorizedAccessException)
+//                        {
+//                            RestartInAdminMode("stop", service.DisplayName, service.MachineName);
+//                        }
+//                        catch (Exception ex)
+//                        {
+//#if DEBUG
+//                            MessageBox.Show(ex.ToString());
+//#endif
+//                            SetListViewIcon(lvi, Status.Unknown);
+//                        }
+//                    }
+//                    tsbStatus.Text = "Stopped " + service.DisplayName;
+//                    if (waitForServiceChange.Visible)
+//                        waitForServiceChange.Close();
+//                    waitForServiceChange = null;
+//                }
                 //UpdateServiceStatusses();
                 RefreshSrvsInList();
                 SetServiceMenuItemsEnable();
@@ -592,131 +655,148 @@ namespace SrvsTool
         }
         private void restartServiceToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (lvwServices.SelectedItems.Count == 0)
+           if (lvwServices.SelectedItems.Count == 0)
                 return;
             try
             {
                 Cursor.Current = Cursors.WaitCursor;
-                WaitForServiceChange waitForServiceChange;
-                EnableServiceStateChangeProgress();
+                List<ServiceDisplayItem> servicesToAction = new List<ServiceDisplayItem>();
                 foreach (ListViewItem lvi in lvwServices.SelectedItems)
                 {
                     ServiceDisplayItem sdi = (ServiceDisplayItem)lvi.Tag;
-                    IServiceControllerEx service = ServiceQueryFactory.GetService(serviceQueryType, sdi.HostName, sdi.ServiceName);
-                    SetNotifyIcon(Status.Busy, "Stopping " + service.DisplayName);
-                    waitForServiceChange = new WaitForServiceChange();
-                    waitForServiceChange.SetWindowSize("Stopping: " + service.DisplayName);
-                    waitForServiceChange.Show("Stopping service", "Stopping: " + service.DisplayName);
-
-                    if (service.Status == ServiceControllerStatus.Running)
-                    {
-                        SetListViewIcon(lvi, Status.Busy);
-
-                        tsbStatus.Text = "Stopping " + service.DisplayName;
-                        Application.DoEvents();
-                        Cursor.Current = Cursors.WaitCursor;
-                        try
-                        {
-                            service.Stop();
-                            DateTime begin = DateTime.Now;
-                            while ((service.Status != ServiceControllerStatus.Stopped) &&
-                                    (((TimeSpan)DateTime.Now.Subtract(begin)).TotalSeconds < 30))
-                            {
-                                service.Refresh();
-                                Application.DoEvents();
-                                Cursor.Current = Cursors.WaitCursor;
-                                Thread.Sleep(500);
-                            }
-                            SetListViewIcon(lvi, Status.Stopped);
-                        }
-                        catch (InvalidOperationException iex)
-                        {
-                            try { waitForServiceChange.Close(); }
-                            catch { }
-#if DEBUG
-                            MessageBox.Show(iex.ToString());
-#endif
-
-                            if (iex.Message.Contains("Cannot open"))
-                            {
-                                RestartInAdminMode("restart", service.DisplayName, service.MachineName);
-                                return;
-                            }
-                            else
-                                SetListViewIcon(lvi, Status.Unknown);
-                        }
-                        catch (UnauthorizedAccessException)
-                        {
-                            RestartInAdminMode("restart", service.DisplayName, service.MachineName);
-                        }
-                        catch
-                        {
-                            SetListViewIcon(lvi, Status.Unknown);
-                        }
-                    }
-                    tsbStatus.Text = "Stopped " + service.DisplayName;
-                    if (waitForServiceChange.Visible)
-                        waitForServiceChange.Close();
-                    waitForServiceChange = null;
-
-                    Thread.Sleep(3000);
-                    Application.DoEvents();
-                    SetNotifyIcon(Status.Busy, "Starting " + service.DisplayName);
-                    waitForServiceChange = new WaitForServiceChange();
-                    waitForServiceChange.SetWindowSize("Starting: " + service.DisplayName);
-                    waitForServiceChange.Show("Starting service", "Starting: " + service.DisplayName);
-                    if (service.Status == ServiceControllerStatus.Stopped)
-                    {
-                        SetListViewIcon(lvi, Status.Busy);
-
-                        tsbStatus.Text = "Starting " + service.DisplayName;
-                        Application.DoEvents();
-                        Cursor.Current = Cursors.WaitCursor;
-                        try
-                        {
-                            service.Start();
-                            DateTime begin = DateTime.Now;
-                            while ((service.Status != ServiceControllerStatus.Running) &&
-                                    (((TimeSpan)DateTime.Now.Subtract(begin)).TotalSeconds < 30))
-                            {
-                                service.Refresh();
-                                Application.DoEvents();
-                                Cursor.Current = Cursors.WaitCursor;
-                                Thread.Sleep(500);
-                            }
-                            SetListViewIcon(lvi, Status.Running);
-                        }
-                        catch (InvalidOperationException iex)
-                        {
-                            try { waitForServiceChange.Close(); }
-                            catch { }
-#if DEBUG
-                            MessageBox.Show(iex.ToString());
-#endif
-
-                            if (iex.Message.Contains("Cannot open"))
-                            {
-                                RestartInAdminMode("restart", service.DisplayName, service.MachineName);
-                                return;
-                            }
-                            else
-                                SetListViewIcon(lvi, Status.Unknown);
-                        }
-                        catch (UnauthorizedAccessException)
-                        {
-                            RestartInAdminMode("restart", service.DisplayName, service.MachineName);
-                        }
-                        catch
-                        {
-                            SetListViewIcon(lvi, Status.Unknown);
-                        }
-                    }
-                    tsbStatus.Text = "Started " + service.DisplayName;
-                    if (waitForServiceChange.Visible)
-                        waitForServiceChange.Close();
-                    waitForServiceChange = null;
+                    sdi.NextAction = "restart";
+                    servicesToAction.Add(sdi);
                 }
-                //UpdateServiceStatusses();
+
+                PerformServicesAction(servicesToAction);
+                Application.DoEvents();
+
+
+//            if (lvwServices.SelectedItems.Count == 0)
+//                return;
+//            try
+//            {
+//                Cursor.Current = Cursors.WaitCursor;
+//                WaitForServiceChange waitForServiceChange;
+//                EnableServiceStateChangeProgress();
+//                foreach (ListViewItem lvi in lvwServices.SelectedItems)
+//                {
+//                    ServiceDisplayItem sdi = (ServiceDisplayItem)lvi.Tag;
+//                    IServiceControllerEx service = ServiceQueryFactory.GetService(serviceQueryType, sdi.HostName, sdi.ServiceName);
+//                    SetNotifyIcon(Status.Busy, "Stopping " + service.DisplayName);
+//                    waitForServiceChange = new WaitForServiceChange();
+//                    waitForServiceChange.SetWindowSize("Stopping: " + service.DisplayName);
+//                    waitForServiceChange.Show("Stopping service", "Stopping: " + service.DisplayName);
+
+//                    if (service.Status == ServiceControllerStatus.Running)
+//                    {
+//                        SetListViewIcon(lvi, Status.Busy);
+
+//                        tsbStatus.Text = "Stopping " + service.DisplayName;
+//                        Application.DoEvents();
+//                        Cursor.Current = Cursors.WaitCursor;
+//                        try
+//                        {
+//                            service.Stop();
+//                            DateTime begin = DateTime.Now;
+//                            while ((service.Status != ServiceControllerStatus.Stopped) &&
+//                                    (((TimeSpan)DateTime.Now.Subtract(begin)).TotalSeconds < 30))
+//                            {
+//                                service.Refresh();
+//                                Application.DoEvents();
+//                                Cursor.Current = Cursors.WaitCursor;
+//                                Thread.Sleep(500);
+//                            }
+//                            SetListViewIcon(lvi, Status.Stopped);
+//                        }
+//                        catch (InvalidOperationException iex)
+//                        {
+//                            try { waitForServiceChange.Close(); }
+//                            catch { }
+//#if DEBUG
+//                            MessageBox.Show(iex.ToString());
+//#endif
+
+//                            if (iex.Message.Contains("Cannot open"))
+//                            {
+//                                RestartInAdminMode("restart", service.DisplayName, service.MachineName);
+//                                return;
+//                            }
+//                            else
+//                                SetListViewIcon(lvi, Status.Unknown);
+//                        }
+//                        catch (UnauthorizedAccessException)
+//                        {
+//                            RestartInAdminMode("restart", service.DisplayName, service.MachineName);
+//                        }
+//                        catch
+//                        {
+//                            SetListViewIcon(lvi, Status.Unknown);
+//                        }
+//                    }
+//                    tsbStatus.Text = "Stopped " + service.DisplayName;
+//                    if (waitForServiceChange.Visible)
+//                        waitForServiceChange.Close();
+//                    waitForServiceChange = null;
+
+//                    Thread.Sleep(3000);
+//                    Application.DoEvents();
+//                    SetNotifyIcon(Status.Busy, "Starting " + service.DisplayName);
+//                    waitForServiceChange = new WaitForServiceChange();
+//                    waitForServiceChange.SetWindowSize("Starting: " + service.DisplayName);
+//                    waitForServiceChange.Show("Starting service", "Starting: " + service.DisplayName);
+//                    if (service.Status == ServiceControllerStatus.Stopped)
+//                    {
+//                        SetListViewIcon(lvi, Status.Busy);
+
+//                        tsbStatus.Text = "Starting " + service.DisplayName;
+//                        Application.DoEvents();
+//                        Cursor.Current = Cursors.WaitCursor;
+//                        try
+//                        {
+//                            service.Start();
+//                            DateTime begin = DateTime.Now;
+//                            while ((service.Status != ServiceControllerStatus.Running) &&
+//                                    (((TimeSpan)DateTime.Now.Subtract(begin)).TotalSeconds < 30))
+//                            {
+//                                service.Refresh();
+//                                Application.DoEvents();
+//                                Cursor.Current = Cursors.WaitCursor;
+//                                Thread.Sleep(500);
+//                            }
+//                            SetListViewIcon(lvi, Status.Running);
+//                        }
+//                        catch (InvalidOperationException iex)
+//                        {
+//                            try { waitForServiceChange.Close(); }
+//                            catch { }
+//#if DEBUG
+//                            MessageBox.Show(iex.ToString());
+//#endif
+
+//                            if (iex.Message.Contains("Cannot open"))
+//                            {
+//                                RestartInAdminMode("restart", service.DisplayName, service.MachineName);
+//                                return;
+//                            }
+//                            else
+//                                SetListViewIcon(lvi, Status.Unknown);
+//                        }
+//                        catch (UnauthorizedAccessException)
+//                        {
+//                            RestartInAdminMode("restart", service.DisplayName, service.MachineName);
+//                        }
+//                        catch
+//                        {
+//                            SetListViewIcon(lvi, Status.Unknown);
+//                        }
+//                    }
+//                    tsbStatus.Text = "Started " + service.DisplayName;
+//                    if (waitForServiceChange.Visible)
+//                        waitForServiceChange.Close();
+//                    waitForServiceChange = null;
+//                }
+//                //UpdateServiceStatusses();
                 RefreshSrvsInList();
                 SetServiceMenuItemsEnable();
             }
@@ -1224,42 +1304,44 @@ namespace SrvsTool
         }
         private void AddServiceToListView(ServiceDisplayItem sdi)
         {
-            ListViewGroup group = null;
-            //try
-            //{
-            //    if (sdi == null)
-            //        return;
-            //}
-            //catch { }
-
-
-            foreach (ListViewGroup lvg in lvwServices.Groups)
+            if (sdi != null)
             {
-                if (lvg.Name.ToUpper() == sdi.HostName.ToUpper())
+                ListViewGroup group = null;
+                //try
+                //{
+                //    if (sdi == null)
+                //        return;
+                //}
+                //catch { }
+
+
+                foreach (ListViewGroup lvg in lvwServices.Groups)
                 {
-                    group = lvg;
-                    break;
+                    if (lvg.Name.ToUpper() == sdi.HostName.ToUpper())
+                    {
+                        group = lvg;
+                        break;
+                    }
                 }
+                if (group == null)
+                {
+                    group = new ListViewGroup(sdi.HostName.ToUpper(), sdi.HostName.ToUpper());
+                    lvwServices.Groups.Add(group);
+                }
+                ListViewItem lvi = new ListViewItem(sdi.DisplayName);
+                lvi.Group = group;
+                if (sdi.Enabled)
+                {
+                    lvi.ImageIndex = 0;
+                }
+                else
+                    SetListViewIcon(lvi, Status.Disabled);
+
+                lvi.Tag = sdi;
+                if ((Properties.Settings.Default.LastSelectedService.ToLower() == sdi.ServiceName.ToLower()) && (Properties.Settings.Default.LastSelectedServiceHost.ToLower() == sdi.HostName.ToLower()))
+                    lvi.Selected = true;
+                lvwServices.Items.Add(lvi);
             }
-            if (group == null)
-            {
-                group = new ListViewGroup(sdi.HostName.ToUpper(), sdi.HostName.ToUpper());
-                lvwServices.Groups.Add(group);
-            }
-            ListViewItem lvi = new ListViewItem(sdi.DisplayName);
-            lvi.Group = group;
-            if (sdi.Enabled)
-            {
-                lvi.ImageIndex = 0;
-            }
-            else
-                SetListViewIcon(lvi, Status.Disabled);
-            
-            lvi.Tag = sdi;
-            if ((Properties.Settings.Default.LastSelectedService.ToLower() == sdi.ServiceName.ToLower()) && (Properties.Settings.Default.LastSelectedServiceHost.ToLower() == sdi.HostName.ToLower()))
-                lvi.Selected = true;
-            lvwServices.Items.Add(lvi);
-            
         }
         private void AddServiceToListView(string host, string serviceName)
         {
@@ -1436,7 +1518,8 @@ namespace SrvsTool
                     currentServices.Sort();
                     foreach (ServiceDisplayItem sdi in currentServices)
                     {
-                        AddServiceToListView(sdi);
+                        if (sdi != null)
+                            AddServiceToListView(sdi);
                     }
                     AddServiceListFileToRecentList(filename);
                     UpdateListViewFooters();                    
@@ -1503,6 +1586,24 @@ namespace SrvsTool
                 }
             }
         }
+        private void SaveAllSettingForClose()
+        {
+            try
+            {
+                if (WindowState == FormWindowState.Normal)
+                {
+                    Properties.Settings.Default.MainWindowLocation = this.Location;
+                    Properties.Settings.Default.MainWindowSize = this.Size;
+                }
+                Properties.Settings.Default.Save();
+
+                if (lvwServices.Items.Count > 0)
+                {
+                    SaveServiceListFile(Properties.Settings.Default.LastServiceListFile);
+                }
+            }
+            catch { }
+        }
         #endregion     
 
         #region Asynchronous refreshing of service statusses
@@ -1540,12 +1641,176 @@ namespace SrvsTool
                 UpdateSrvsList();
                 Cursor.Current = Cursors.Default;
             }
-        } 
+        }
+
+        private void PerformServicesAction(List<ServiceDisplayItem> actionServices)
+        {
+            if (actionServices != null && actionServices.Count > 0)
+            {
+                if (!AdminModeTools.IsInAdminMode() &&
+                         (from sdi in actionServices
+                          where sdi.HostName.ToLower() == System.Net.Dns.GetHostName().ToLower()
+                          select sdi).Count() > 0)
+                {
+                    StringBuilder sb = new StringBuilder();
+                    foreach (ServiceDisplayItem sdi in actionServices)
+                    {
+                        sb.AppendLine(sdi.NextAction + "|" + sdi.HostName + "|" + sdi.ServiceName);
+                    }
+                    string restartActionsPath = System.IO.Path.Combine(System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Hen IT\\SrvsTool3\\SrvsTool3RestartActions.txt");
+                    if (!System.IO.Directory.Exists(System.IO.Path.GetDirectoryName(restartActionsPath)))
+                    {
+                        System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(restartActionsPath));
+                    }
+                    System.IO.File.WriteAllText(restartActionsPath, sb.ToString());
+                    SaveAllSettingForClose();
+                    try
+                    {
+                        AdminModeTools.RestartInAdminMode();
+                        return;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.ToString(), "Restart in Admin mode", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                    System.Threading.Tasks.ParallelOptions po = new System.Threading.Tasks.ParallelOptions()
+                    {
+                        MaxDegreeOfParallelism = Properties.Settings.Default.ConcurrencyLevel
+                    };
+                    System.Threading.Tasks.ParallelLoopResult parResult = System.Threading.Tasks.Parallel.ForEach(actionServices, po, sdi => PerformServiceAction(sdi));
+                    if (!parResult.IsCompleted)
+                    {
+                        tsbStatus.Text = "Error action services in parralel";
+                    }
+                    RefreshSrvsInList();
+                }
+            }
+        }
+        private void PerformServiceAction(ServiceDisplayItem sdi)
+        {
+            try
+            {
+                WaitForServiceChange waitForServiceChange;
+                DateTime begin = DateTime.Now;
+                waitForServiceChange = new WaitForServiceChange();
+                IServiceControllerEx service = ServiceQueryFactory.GetService(serviceQueryType, sdi.HostName, sdi.ServiceName);
+                waitForServiceChange.SetWindowSize("Action: " + sdi.NextAction + " => " + service.DisplayName);
+                if (sdi.NextAction.ToLower() == "start")
+                {
+                    try
+                    {
+                        waitForServiceChange.Show("Starting service " + service.DisplayName, "Starting " + service.DisplayName);
+                        service.Start();
+                        Application.DoEvents();
+                        while ((service.Status != ServiceControllerStatus.Running) &&
+                                   (((TimeSpan)DateTime.Now.Subtract(begin)).TotalSeconds < 30))
+                        {
+                            service.Refresh();
+                            Application.DoEvents();
+                            Cursor.Current = Cursors.WaitCursor;
+                            Thread.Sleep(500);
+                        }
+                    }
+                    catch { }
+                }
+                else if (sdi.NextAction.ToLower() == "stop")
+                {
+                    try
+                    {
+                        waitForServiceChange.Show("Stopping service " + service.DisplayName, "Stopping " + service.DisplayName);
+                        service.Stop();
+                        Application.DoEvents();
+                        while ((service.Status != ServiceControllerStatus.Stopped) &&
+                                   (((TimeSpan)DateTime.Now.Subtract(begin)).TotalSeconds < 30))
+                        {
+                            service.Refresh();
+                            Application.DoEvents();
+                            Cursor.Current = Cursors.WaitCursor;
+                            Thread.Sleep(500);
+                        }
+                    }
+                    catch { }
+                }
+                else if (sdi.NextAction.ToLower() == "restart")
+                {
+                    try
+                    {
+                        waitForServiceChange.Show("Stopping service " + service.DisplayName, "Stopping " + service.DisplayName);
+                        service.Stop();
+                        Application.DoEvents();
+                        while ((service.Status != ServiceControllerStatus.Stopped) &&
+                                   (((TimeSpan)DateTime.Now.Subtract(begin)).TotalSeconds < 30))
+                        {
+                            service.Refresh();
+                            Application.DoEvents();
+                            Cursor.Current = Cursors.WaitCursor;
+                            Thread.Sleep(500);
+                        }
+                    }
+                    catch { }
+                    try
+                    {
+                        waitForServiceChange.Show("Starting service " + service.DisplayName, "Starting " + service.DisplayName);
+                        service.Start();
+                        Application.DoEvents();
+                        while ((service.Status != ServiceControllerStatus.Running) &&
+                                   (((TimeSpan)DateTime.Now.Subtract(begin)).TotalSeconds < 30))
+                        {
+                            service.Refresh();
+                            Application.DoEvents();
+                            Cursor.Current = Cursors.WaitCursor;
+                            Thread.Sleep(500);
+                        }
+                    }
+                    catch { }
+                }
+
+                Thread.Sleep(500);
+                if (waitForServiceChange.Visible)
+                    waitForServiceChange.Close();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
         #endregion
 
         #region Adminmode
-        private void RestartInAdminMode(string action, string serviceName, string hostName) //bool noprompt, 
+        private void RestartInAdminMode(string action)
         {
+            StringBuilder sb = new StringBuilder();
+            foreach(ListViewItem lvi in lvwServices.SelectedItems)
+            {
+                ServiceDisplayItem sdi = (ServiceDisplayItem)lvi.Tag;
+                sb.AppendLine("action|" + sdi.HostName + "|" + sdi.ServiceName);
+            }
+            try
+            {
+                string restartActionsPath = System.IO.Path.Combine(System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Hen IT\\SrvsTool3\\SrvsTool3RestartActions.txt");
+                if (!System.IO.Directory.Exists(System.IO.Path.GetDirectoryName(restartActionsPath)))
+                {
+                    System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(restartActionsPath));
+                }
+                System.IO.File.WriteAllText(restartActionsPath, sb.ToString());
+                Properties.Settings.Default.Save();
+                AdminModeTools.RestartInAdminMode();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Restart in Admin mode", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void RestartInAdminMode(string action, string serviceName, string hostName)
+        {
+
+
             //if (noprompt || MessageBox.Show("This action requires administrative rights!\r\nRestart application in Administrative mode?", "Admin mode", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == System.Windows.Forms.DialogResult.Yes)
             {
                 Properties.Settings.Default.Save();
