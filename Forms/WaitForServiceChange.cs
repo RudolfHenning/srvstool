@@ -10,11 +10,15 @@ namespace SrvsTool
     {
         private DateTime startTime;
         private readonly int BORDERSIZE = 20;
-        private TaskbarManager windowsTaskbar = TaskbarManager.Instance;
+        private TaskbarManager windowsTaskbar =null; 
 
         public WaitForServiceChange()
         {
             InitializeComponent();
+            if (System.Environment.OSVersion.Version.Major > 6 || (System.Environment.OSVersion.Version.Major == 6 && System.Environment.OSVersion.Version.Minor == 1))
+            {
+                windowsTaskbar = TaskbarManager.Instance;
+            }
         }
 
         public void Show(string caption, string description)
@@ -71,7 +75,7 @@ namespace SrvsTool
 
         private void EnableServiceStateChangeProgress()
         {
-            if (CoreHelpers.RunningOnWin7)
+            if (CoreHelpers.RunningOnWin7 && windowsTaskbar != null)
             {
                 TaskbarProgressBarState state = TaskbarProgressBarState.Indeterminate;
                 windowsTaskbar.SetProgressState(state);
@@ -79,7 +83,7 @@ namespace SrvsTool
         }
         private void DisableServiceStateChangeProgress()
         {
-            if (CoreHelpers.RunningOnWin7)
+            if (CoreHelpers.RunningOnWin7 && windowsTaskbar != null)
             {
                 TaskbarProgressBarState state = TaskbarProgressBarState.NoProgress;
                 windowsTaskbar.SetProgressState(state);
