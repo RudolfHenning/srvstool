@@ -55,19 +55,49 @@ namespace SrvsTool
             {
                 try
                 {
-                    ServiceController[] queriedServices = ServiceController.GetServices(hostName);
-                    foreach (ServiceDisplayItem sdi in (from s in serviceList
-                                                        where s.HostName == hostName
-                                                        select s))
+                    bool isPingable = false;
+                    if (hostName.ToLower() == "localhost" || hostName.ToLower() == System.Net.Dns.GetHostName().ToLower())
                     {
-                        if ((from qs in queriedServices
-                             where qs.DisplayName == sdi.DisplayName
-                             select qs).Count() == 1)
+                        isPingable = true;
+                    }
+                    else 
+                    {
+                        try
                         {
-                            ServiceController service = (from qs in queriedServices
-                                                         where qs.DisplayName == sdi.DisplayName
-                                                         select qs).First();
-                            sdi.LastStatus = (ServiceControllerStatusEx)service.Status;
+                            using (System.Net.NetworkInformation.Ping ping = new System.Net.NetworkInformation.Ping())
+                            {
+                                System.Net.NetworkInformation.PingReply reply = ping.Send(hostName, 2000);
+                                if (reply.Status == System.Net.NetworkInformation.IPStatus.Success)
+                                    isPingable = true;
+                            }
+                        }
+                        catch { }
+                    }
+                    if (isPingable)
+                    {
+                        ServiceController[] queriedServices = ServiceController.GetServices(hostName);
+                        foreach (ServiceDisplayItem sdi in (from s in serviceList
+                                                            where s.HostName == hostName
+                                                            select s))
+                        {
+                            if ((from qs in queriedServices
+                                 where qs.DisplayName == sdi.DisplayName
+                                 select qs).Count() == 1)
+                            {
+                                ServiceController service = (from qs in queriedServices
+                                                             where qs.DisplayName == sdi.DisplayName
+                                                             select qs).First();
+                                sdi.LastStatus = (ServiceControllerStatusEx)service.Status;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        foreach (ServiceDisplayItem sdi in (from s in serviceList
+                                                            where s.HostName == hostName
+                                                            select s))
+                        {
+                            sdi.LastStatus = ServiceControllerStatusEx.Unknown;
                         }
                     }
                 }
