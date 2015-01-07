@@ -11,7 +11,7 @@ using System.Resources;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Hen IT")]
 [assembly: AssemblyProduct("Services monitor")]
-[assembly: AssemblyCopyright("Copyright © Hen IT 2014")]
+[assembly: AssemblyCopyright("Copyright © Hen IT 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -33,6 +33,6 @@ using System.Resources;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("3.2.0106.2015")]
-[assembly: AssemblyFileVersion("3.2.0106.2015")]
+[assembly: AssemblyVersion("3.2.0107.2015")]
+[assembly: AssemblyFileVersion("3.2.0107.2015")]
 [assembly: NeutralResourcesLanguageAttribute("en-ZA")]

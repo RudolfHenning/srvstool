@@ -1099,31 +1099,39 @@ namespace SrvsTool
             else
             {
                 ServiceDisplayItem sdi = (ServiceDisplayItem)lvwServices.SelectedItems[0].Tag;
-                IServiceControllerEx srv = ServiceQueryFactory.GetService(serviceQueryType, sdi.HostName, sdi.ServiceName);
-                if (!sdi.Enabled)
+                if (PingUtil.Ping(sdi.HostName))
                 {
-                    SetNotifyIcon(Status.Disabled, "Monitoring disabled - " + lvwServices.SelectedItems[0].Text);
-                    tsbStatus.Text = "Monitoring disabled";
-                }
-                else if (srv.Status == ServiceControllerStatus.Running)
-                {
-                    SetNotifyIcon(Status.Running, "Service is running - " + lvwServices.SelectedItems[0].Text);
-                    tsbStatus.Text = "Service is running";
-                }
-                else if (srv.Status == ServiceControllerStatus.Stopped)
-                {
-                    SetNotifyIcon(Status.Stopped, "Service is stopped - " + lvwServices.SelectedItems[0].Text);
-                    tsbStatus.Text = "Service is stopped";
-                }
-                else if (srv.Status == ServiceControllerStatus.Paused)
-                {
-                    SetNotifyIcon(Status.Disabled, "Service is paused - " + lvwServices.SelectedItems[0].Text);
-                    tsbStatus.Text = "Service is paused";
+                    IServiceControllerEx srv = ServiceQueryFactory.GetService(serviceQueryType, sdi.HostName, sdi.ServiceName);
+                    if (!sdi.Enabled)
+                    {
+                        SetNotifyIcon(Status.Disabled, "Monitoring disabled - " + lvwServices.SelectedItems[0].Text);
+                        tsbStatus.Text = "Monitoring disabled";
+                    }
+                    else if (srv.Status == ServiceControllerStatus.Running)
+                    {
+                        SetNotifyIcon(Status.Running, "Service is running - " + lvwServices.SelectedItems[0].Text);
+                        tsbStatus.Text = "Service is running";
+                    }
+                    else if (srv.Status == ServiceControllerStatus.Stopped)
+                    {
+                        SetNotifyIcon(Status.Stopped, "Service is stopped - " + lvwServices.SelectedItems[0].Text);
+                        tsbStatus.Text = "Service is stopped";
+                    }
+                    else if (srv.Status == ServiceControllerStatus.Paused)
+                    {
+                        SetNotifyIcon(Status.Disabled, "Service is paused - " + lvwServices.SelectedItems[0].Text);
+                        tsbStatus.Text = "Service is paused";
+                    }
+                    else
+                    {
+                        SetNotifyIcon(Status.Busy, "Service is being stopped or started - " + lvwServices.SelectedItems[0].Text);
+                        tsbStatus.Text = "Service is being stopped or started";
+                    }
                 }
                 else
                 {
-                    SetNotifyIcon(Status.Busy, "Service is being stopped or started - " + lvwServices.SelectedItems[0].Text);
-                    tsbStatus.Text = "Service is being stopped or started";
+                    SetNotifyIcon(Status.Unknown, "Host not pingable - " + lvwServices.SelectedItems[0].Text);
+                    tsbStatus.Text = "Host not pingable";
                 }
             }
         }
