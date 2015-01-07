@@ -147,6 +147,7 @@
     </Compile>
     <Compile Include="Utils\AdminModeTools.cs" />
     <Compile Include="Utils\DelayExecute.cs" />
+    <Compile Include="Utils\PingUtil.cs" />
     <EmbeddedResource Include="Forms\AddServices.resx">
       <DependentUpon>AddServices.cs</DependentUpon>
     </EmbeddedResource>

@@ -55,25 +55,25 @@ namespace SrvsTool
             {
                 try
                 {
-                    bool isPingable = false;
-                    if (hostName.ToLower() == "localhost" || hostName.ToLower() == System.Net.Dns.GetHostName().ToLower())
-                    {
-                        isPingable = true;
-                    }
-                    else 
-                    {
-                        try
-                        {
-                            using (System.Net.NetworkInformation.Ping ping = new System.Net.NetworkInformation.Ping())
-                            {
-                                System.Net.NetworkInformation.PingReply reply = ping.Send(hostName, 2000);
-                                if (reply.Status == System.Net.NetworkInformation.IPStatus.Success)
-                                    isPingable = true;
-                            }
-                        }
-                        catch { }
-                    }
-                    if (isPingable)
+                    //bool isPingable = false;
+                    //if (hostName.ToLower() == "localhost" || hostName.ToLower() == System.Net.Dns.GetHostName().ToLower())
+                    //{
+                    //    isPingable = true;
+                    //}
+                    //else 
+                    //{
+                    //    try
+                    //    {
+                    //        using (System.Net.NetworkInformation.Ping ping = new System.Net.NetworkInformation.Ping())
+                    //        {
+                    //            System.Net.NetworkInformation.PingReply reply = ping.Send(hostName, 2000);
+                    //            if (reply.Status == System.Net.NetworkInformation.IPStatus.Success)
+                    //                isPingable = true;
+                    //        }
+                    //    }
+                    //    catch { }
+                    //}
+                    if (PingUtil.Ping(hostName))
                     {
                         ServiceController[] queriedServices = ServiceController.GetServices(hostName);
                         foreach (ServiceDisplayItem sdi in (from s in serviceList
