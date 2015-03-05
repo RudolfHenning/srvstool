@@ -97,6 +97,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\ListViewGroupUtils.cs" />
+    <Compile Include="Controls\TextBoxEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Forms\FadeForm.cs">
       <SubType>Form</SubType>
     </Compile>

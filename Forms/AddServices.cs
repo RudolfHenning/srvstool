@@ -150,5 +150,15 @@ namespace SrvsTool
             cmdOK.Enabled = (lstServices.SelectedItems.Count > 0);
 
         }
+
+        private void txtMachine_EnterKeyPressed()
+        {
+            LoadServiceList();
+        }
+
+        private void txtFilter_EnterKeyPressed()
+        {
+            LoadServiceList();
+        }
     }
 }
