@@ -109,11 +109,15 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.cboQuickLoad = new System.Windows.Forms.ComboBox();
             this.timerQuickload = new System.Windows.Forms.Timer(this.components);
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.txtQuickSelect = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.ctxNotifyIconMenu.SuspendLayout();
             this.servicesContextMenuStrip.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainNotifyIcon
@@ -199,14 +203,15 @@
             listViewGroup1.Name = "listViewGroupHosts";
             this.lvwServices.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
             listViewGroup1});
+            this.lvwServices.HideSelection = false;
             listViewItem1.Group = listViewGroup1;
             this.lvwServices.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
             listViewItem1});
             this.lvwServices.Location = new System.Drawing.Point(0, 87);
             this.lvwServices.Name = "lvwServices";
-            this.lvwServices.Size = new System.Drawing.Size(363, 274);
+            this.lvwServices.Size = new System.Drawing.Size(419, 387);
             this.lvwServices.SmallImageList = this.imageListServiceStates;
-            this.lvwServices.TabIndex = 0;
+            this.lvwServices.TabIndex = 3;
             this.lvwServices.UseCompatibleStateImageBehavior = false;
             this.lvwServices.View = System.Windows.Forms.View.Details;
             this.lvwServices.SelectedIndexChanged += new System.EventHandler(this.lvwServices_SelectedIndexChanged);
@@ -344,10 +349,10 @@
             this.tsbAdmin,
             this.tsbStatus,
             this.tsbStatistics});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 361);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 474);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(363, 22);
-            this.statusStrip1.TabIndex = 1;
+            this.statusStrip1.Size = new System.Drawing.Size(419, 22);
+            this.statusStrip1.TabIndex = 5;
             this.statusStrip1.Text = "statusStrip1";
             // 
             // tsbAdmin
@@ -370,7 +375,7 @@
             // 
             this.tsbStatistics.AutoSize = false;
             this.tsbStatistics.Name = "tsbStatistics";
-            this.tsbStatistics.Size = new System.Drawing.Size(178, 17);
+            this.tsbStatistics.Size = new System.Drawing.Size(234, 17);
             this.tsbStatistics.Spring = true;
             this.tsbStatistics.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -384,8 +389,8 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(363, 24);
-            this.menuStrip1.TabIndex = 2;
+            this.menuStrip1.Size = new System.Drawing.Size(419, 24);
+            this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // fileToolStripMenuItem
@@ -553,14 +558,14 @@
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(136, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(149, 6);
             // 
             // refreshToolStripMenuItem
             // 
             this.refreshToolStripMenuItem.Image = global::SrvsTool.Properties.Resources.Refresh;
             this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
             this.refreshToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.refreshToolStripMenuItem.Text = "&Refresh";
             this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
             // 
@@ -570,7 +575,7 @@
             this.autoRefreshToolStripMenuItem.CheckOnClick = true;
             this.autoRefreshToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.autoRefreshToolStripMenuItem.Name = "autoRefreshToolStripMenuItem";
-            this.autoRefreshToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.autoRefreshToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.autoRefreshToolStripMenuItem.Text = "Auto refresh";
             this.autoRefreshToolStripMenuItem.Click += new System.EventHandler(this.autoRefreshToolStripMenuItem_Click);
             // 
@@ -589,7 +594,7 @@
             // 
             this.servicesMmcToolStripMenuItem.Image = global::SrvsTool.Properties.Resources.options;
             this.servicesMmcToolStripMenuItem.Name = "servicesMmcToolStripMenuItem";
-            this.servicesMmcToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.servicesMmcToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.servicesMmcToolStripMenuItem.Text = "Services mmc";
             this.servicesMmcToolStripMenuItem.Click += new System.EventHandler(this.servicesMmcToolStripMenuItem_Click);
             // 
@@ -597,20 +602,20 @@
             // 
             this.eventlogToolStripMenuItem.Image = global::SrvsTool.Properties.Resources.Eventlog;
             this.eventlogToolStripMenuItem.Name = "eventlogToolStripMenuItem";
-            this.eventlogToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.eventlogToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.eventlogToolStripMenuItem.Text = "Eventlog";
             this.eventlogToolStripMenuItem.Click += new System.EventHandler(this.eventlogToolStripMenuItem_Click);
             // 
             // toolStripMenuItem6
             // 
             this.toolStripMenuItem6.Name = "toolStripMenuItem6";
-            this.toolStripMenuItem6.Size = new System.Drawing.Size(144, 6);
+            this.toolStripMenuItem6.Size = new System.Drawing.Size(149, 6);
             // 
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.Image = global::SrvsTool.Properties.Resources.Wrench;
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.optionsToolStripMenuItem.Text = "&Options";
             this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
             // 
@@ -627,7 +632,7 @@
             // 
             this.aboutToolStripMenuItem.Image = global::SrvsTool.Properties.Resources.About;
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -650,8 +655,8 @@
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Padding = new System.Windows.Forms.Padding(5, 2, 1, 2);
-            this.toolStrip1.Size = new System.Drawing.Size(363, 35);
-            this.toolStrip1.TabIndex = 3;
+            this.toolStrip1.Size = new System.Drawing.Size(419, 35);
+            this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
             // toolStripButtonLoad
@@ -782,8 +787,8 @@
             this.cboQuickLoad.FormattingEnabled = true;
             this.cboQuickLoad.Location = new System.Drawing.Point(0, 59);
             this.cboQuickLoad.Name = "cboQuickLoad";
-            this.cboQuickLoad.Size = new System.Drawing.Size(363, 28);
-            this.cboQuickLoad.TabIndex = 4;
+            this.cboQuickLoad.Size = new System.Drawing.Size(419, 28);
+            this.cboQuickLoad.TabIndex = 2;
             this.toolTip1.SetToolTip(this.cboQuickLoad, "Quick load");
             this.cboQuickLoad.SelectedIndexChanged += new System.EventHandler(this.cboQuickLoad_SelectedIndexChanged);
             // 
@@ -792,11 +797,41 @@
             this.timerQuickload.Interval = 500;
             this.timerQuickload.Tick += new System.EventHandler(this.timerQuickload_Tick);
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.txtQuickSelect);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel1.Location = new System.Drawing.Point(0, 448);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(419, 26);
+            this.panel1.TabIndex = 4;
+            // 
+            // txtQuickSelect
+            // 
+            this.txtQuickSelect.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtQuickSelect.Location = new System.Drawing.Point(75, 3);
+            this.txtQuickSelect.Name = "txtQuickSelect";
+            this.txtQuickSelect.Size = new System.Drawing.Size(341, 20);
+            this.txtQuickSelect.TabIndex = 1;
+            this.txtQuickSelect.TextChanged += new System.EventHandler(this.txtQuickSelect_TextChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(3, 6);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(66, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Quick select";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(363, 383);
+            this.ClientSize = new System.Drawing.Size(419, 496);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.lvwServices);
             this.Controls.Add(this.cboQuickLoad);
             this.Controls.Add(this.toolStrip1);
@@ -804,6 +839,7 @@
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
+            this.MinimumSize = new System.Drawing.Size(300, 400);
             this.Name = "MainForm";
             this.Text = "Services monitor";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
@@ -817,6 +853,8 @@
             this.menuStrip1.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -899,6 +937,9 @@
         private System.Windows.Forms.ToolStripMenuItem restartInAdminModeToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItemAdminSeparator;
         private System.Windows.Forms.ToolStripStatusLabel tsbAdmin;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.TextBox txtQuickSelect;
+        private System.Windows.Forms.Label label1;
     }
 }
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
-  <Product Id="*" Name="Services Monitor 3" Language="1033" Version="3.2.0305.2015" Manufacturer="Hen IT"
+  <Product Id="*" Name="Services Monitor 3" Language="1033" Version="3.3.317.2015" Manufacturer="Hen IT"
        UpgradeCode="59162023-5478-4668-A278-53461C300000">
     <Package Id='*' Keywords='Installer' Description="Services Monitor 3 Installer" Comments='Services Monitor is a simple tool for managing Windows services' 
        Manufacturer='Hen IT' InstallerVersion='200' Languages='1033' Compressed='yes' SummaryCodepage='1252' />

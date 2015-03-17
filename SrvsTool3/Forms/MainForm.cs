@@ -1869,5 +1869,19 @@ namespace SrvsTool
         }
         #endregion
 
+        private void txtQuickSelect_TextChanged(object sender, EventArgs e)
+        {
+            if (txtQuickSelect.Text.Trim().Length > 2)
+            {
+                lvwServices.SelectedItems.Clear();
+                foreach (ListViewItem lvi in (from ListViewItem l in lvwServices.Items
+                                               where l.Text.ToLower().Contains(txtQuickSelect.Text.ToLower() )
+                                               select l))
+                {
+                    lvi.Selected = true;
+                }
+            }
+        }
+
     }
 }
