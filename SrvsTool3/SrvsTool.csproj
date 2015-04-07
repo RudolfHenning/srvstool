@@ -163,7 +163,9 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="app.config" />
-    <None Include="app.manifest" />
+    <None Include="app.manifest">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="HenIT.pfx" />
     <None Include="Installer\1. GetReleasedBinaries.cmd" />
     <None Include="Installer\2. Build all.cmd" />
@@ -268,6 +270,7 @@
     <Content Include="Installer\Microsoft.WindowsAPICodePack.Shell.dll" />
     <Content Include="Installer\Product.wxs" />
     <Content Include="Installer\Productx64.wxs" />
+    <None Include="Resources\BlueIshBgrt.png" />
     <Content Include="ToDo.txt" />
     <EmbeddedResource Include="Properties\app.manifest">
       <SubType>Designer</SubType>

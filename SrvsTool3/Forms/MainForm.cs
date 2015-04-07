@@ -1351,7 +1351,7 @@ namespace SrvsTool
                     SetListViewIcon(lvi, Status.Disabled);
 
                 lvi.Tag = sdi;
-                if ((Properties.Settings.Default.LastSelectedService.ToLower() == sdi.ServiceName.ToLower()) && (Properties.Settings.Default.LastSelectedServiceHost.ToLower() == sdi.HostName.ToLower()))
+                if (PingUtil.Ping(sdi.HostName) && (Properties.Settings.Default.LastSelectedService.ToLower() == sdi.ServiceName.ToLower()) && (Properties.Settings.Default.LastSelectedServiceHost.ToLower() == sdi.HostName.ToLower()))
                     lvi.Selected = true;
                 lvwServices.Items.Add(lvi);
             }
