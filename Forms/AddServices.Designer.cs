@@ -99,7 +99,7 @@ namespace SrvsTool
             // cmdOK
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdOK.BackColor = System.Drawing.SystemColors.Control;
+            this.cmdOK.BackColor = System.Drawing.Color.WhiteSmoke;
             this.cmdOK.Enabled = false;
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cmdOK.ForeColor = System.Drawing.SystemColors.ControlText;
@@ -114,7 +114,7 @@ namespace SrvsTool
             // cmdCancel
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdCancel.BackColor = System.Drawing.SystemColors.Control;
+            this.cmdCancel.BackColor = System.Drawing.Color.WhiteSmoke;
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cmdCancel.ForeColor = System.Drawing.SystemColors.ControlText;
@@ -128,7 +128,7 @@ namespace SrvsTool
             // cmdLoadList
             // 
             this.cmdLoadList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdLoadList.BackColor = System.Drawing.SystemColors.Control;
+            this.cmdLoadList.BackColor = System.Drawing.Color.WhiteSmoke;
             this.cmdLoadList.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cmdLoadList.ForeColor = System.Drawing.SystemColors.ControlText;
             this.cmdLoadList.Location = new System.Drawing.Point(340, 6);
@@ -172,6 +172,7 @@ namespace SrvsTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.CancelButton = this.cmdCancel;
             this.ClientSize = new System.Drawing.Size(394, 293);
             this.Controls.Add(this.txtFilter);

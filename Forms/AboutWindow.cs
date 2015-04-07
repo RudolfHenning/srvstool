@@ -14,7 +14,7 @@ namespace SrvsTool
             this.labelVersion.Text = String.Format("Version {0}", AssemblyVersion);
             this.labelCopyright.Text = AssemblyCopyright;
             this.labelCompanyName.Text = AssemblyCompany;
-            this.textBoxDescription.Text = AssemblyDescription;
+            this.lblDescription.Text = AssemblyDescription;
         }
 
         #region Assembly Attribute Accessors
@@ -106,6 +106,16 @@ namespace SrvsTool
         private void AboutWindow_Load(object sender, EventArgs e)
         {
             Opacity = 0.6;
+        }
+
+        private void logoPictureBox_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void AboutWindow_Click(object sender, EventArgs e)
+        {
+            Close();
         }
 
     }

@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RecentFileList));
             this.lvwServiceListFiles = new System.Windows.Forms.ListView();
-            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.openFileDialogAdd = new System.Windows.Forms.OpenFileDialog();
             this.cmdCancel = new System.Windows.Forms.Button();
             this.cmdAdd = new System.Windows.Forms.Button();
@@ -39,9 +39,9 @@
             // 
             // lvwServiceListFiles
             // 
-            this.lvwServiceListFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvwServiceListFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lvwServiceListFiles.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1});
             this.lvwServiceListFiles.Location = new System.Drawing.Point(0, 0);
@@ -69,7 +69,7 @@
             // cmdCancel
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdCancel.BackColor = System.Drawing.SystemColors.Control;
+            this.cmdCancel.BackColor = System.Drawing.Color.WhiteSmoke;
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cmdCancel.ForeColor = System.Drawing.SystemColors.ControlText;
@@ -83,7 +83,7 @@
             // cmdAdd
             // 
             this.cmdAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.cmdAdd.BackColor = System.Drawing.SystemColors.Control;
+            this.cmdAdd.BackColor = System.Drawing.Color.WhiteSmoke;
             this.cmdAdd.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cmdAdd.ForeColor = System.Drawing.SystemColors.ControlText;
             this.cmdAdd.Location = new System.Drawing.Point(12, 231);
@@ -97,7 +97,7 @@
             // cmdOK
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdOK.BackColor = System.Drawing.SystemColors.Control;
+            this.cmdOK.BackColor = System.Drawing.Color.WhiteSmoke;
             this.cmdOK.Enabled = false;
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cmdOK.ForeColor = System.Drawing.SystemColors.ControlText;
@@ -113,6 +113,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.CancelButton = this.cmdCancel;
             this.ClientSize = new System.Drawing.Size(417, 266);
             this.Controls.Add(this.cmdAdd);
