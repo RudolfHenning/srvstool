@@ -13,9 +13,9 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ApplicationIcon>GMix.ico</ApplicationIcon>
-    <SignAssembly>false</SignAssembly>
+    <SignAssembly>true</SignAssembly>
     <IsWebBootstrapper>true</IsWebBootstrapper>
-    <AssemblyOriginatorKeyFile>HenIT.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>Hen IT.pfx</AssemblyOriginatorKeyFile>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileUpgradeFlags>
@@ -166,6 +166,7 @@
     <None Include="app.manifest">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Hen IT.pfx" />
     <None Include="HenIT.pfx" />
     <None Include="Installer\1. GetReleasedBinaries.cmd" />
     <None Include="Installer\2. Build all.cmd" />
