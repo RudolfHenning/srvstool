@@ -343,7 +343,8 @@ namespace SrvsTool
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                tsbStatistics.Text = ex.Message;
+                //MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void lvwServices_KeyUp(object sender, KeyEventArgs e)
