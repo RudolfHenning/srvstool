@@ -1231,6 +1231,11 @@ namespace SrvsTool
                            ((ServiceDisplayItem)lviq.Tag).Enabled
                          select lviq).Count() > 0)
                     {
+                        string hostName = grp.Tag.ToString();
+                        //if (PingUtil.Ping(hostName))
+                        //{
+                        //}
+
                         //Loop by each machine
                         foreach (ListViewItem lvi in grp.Items)
                         {
@@ -1283,6 +1288,8 @@ namespace SrvsTool
                                 SetListViewIcon(lvi, Status.Unknown);
                             }
                         }
+
+
                     }
                 }
                 RefreshNotifyIcon();
@@ -1309,7 +1316,10 @@ namespace SrvsTool
             this.Resize += new EventHandler(Form1_Resize);
             serviceQueryEngineAsync.ServicesStatusCheckComplete += new ServicesStatusCheckDelegate(serviceQueryEngineAsync_ServicesStatusCheckComplete);
             serviceQueryEngineAsync.ServicesStatusCheckError += new ServicesStatusCheckErrorDelegate(serviceQueryEngineAsync_ServicesStatusCheckError);
-        }        
+            serviceQueryEngineAsync.ServiceStateUpdated += serviceQueryEngineAsync_ServiceStateUpdated;
+        }
+
+       
         private void UpdateListViewFooters()
         {
             lvwServices.SetGroupState(SrvsTool.Controls.ListViewGroupState.Collapsible);
@@ -1340,6 +1350,7 @@ namespace SrvsTool
                 if (group == null)
                 {
                     group = new ListViewGroup(sdi.HostName.ToUpper(), sdi.HostName.ToUpper());
+                    group.Tag = sdi.HostName;
                     lvwServices.Groups.Add(group);
                 }
                 ListViewItem lvi = new ListViewItem(sdi.DisplayName);
@@ -1656,6 +1667,42 @@ namespace SrvsTool
                 Cursor.Current = Cursors.Default;
             }
         }
+        private void serviceQueryEngineAsync_ServiceStateUpdated(ServiceDisplayItem sdi)
+        {
+            if (lvwServices.InvokeRequired)
+            {
+                lvwServices.Invoke((MethodInvoker)delegate
+                {
+                    ListViewItem lvi = (from ListViewItem l in lvwServices.Items
+                                        where ((ServiceDisplayItem)l.Tag).HostName == sdi.HostName &&
+                                              ((ServiceDisplayItem)l.Tag).DisplayName == sdi.DisplayName
+                                        select l).FirstOrDefault();
+                    if (lvi != null)
+                    {
+                        if (sdi.LastStatus == ServiceControllerStatusEx.Running)
+                        {
+                            SetListViewIcon(lvi, Status.Running);
+                        }
+                        else if (sdi.LastStatus == ServiceControllerStatusEx.Stopped)
+                        {
+                            SetListViewIcon(lvi, Status.Stopped);
+                        }
+                        else if (sdi.LastStatus == ServiceControllerStatusEx.Paused)
+                        {
+                            SetListViewIcon(lvi, Status.Disabled);
+                        }
+                        else if ((sdi.LastStatus == ServiceControllerStatusEx.StartPending) ||
+                                (sdi.LastStatus == ServiceControllerStatusEx.StopPending) ||
+                                (sdi.LastStatus == ServiceControllerStatusEx.ContinuePending))
+                            SetListViewIcon(lvi, Status.Busy);
+                        else
+                            SetListViewIcon(lvi, Status.Unknown);
+                        lvi.Tag = null;
+                        lvi.Tag = sdi;
+                    }
+                });
+            }
+        } 
 
         private void PerformServicesAction(List<ServiceDisplayItem> actionServices)
         {

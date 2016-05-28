@@ -8,6 +8,7 @@ namespace SrvsTool
 {
     public delegate void ServicesStatusCheckDelegate();
     public delegate void ServicesStatusCheckErrorDelegate(string message);
+    public delegate void ServiceStateUpdatedDelegate(ServiceDisplayItem sdi);
     public class ServiceQueryEngineAsync
     {
         public ServiceQueryEngineAsync()
@@ -28,7 +29,13 @@ namespace SrvsTool
         {
             if (ServicesStatusCheckError != null)
                 ServicesStatusCheckError(message);
-        } 
+        }
+        public event ServiceStateUpdatedDelegate ServiceStateUpdated;
+        private void RaiseServiceStateUpdated(ServiceDisplayItem sdi)
+        {
+            if (ServiceStateUpdated != null)
+                ServiceStateUpdated(sdi);
+        }
         #endregion
 
         public void RefreshServiceListAsync(List<ServiceDisplayItem> serviceList)
@@ -88,6 +95,7 @@ namespace SrvsTool
                                                              where qs.DisplayName == sdi.DisplayName
                                                              select qs).First();
                                 sdi.LastStatus = (ServiceControllerStatusEx)service.Status;
+                                RaiseServiceStateUpdated(sdi);
                             }
                         }
                     }
