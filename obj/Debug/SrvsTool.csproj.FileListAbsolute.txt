@@ -1,1 +1,0 @@
-D:\Rudolf\SourceCode\GitHub\srvstool\srvstool\bin\Debug\SrvsTool.exe.config
