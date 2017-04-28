@@ -1,64 +1,25 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SrvsTool", "SrvsTool\SrvsTool.csproj", "{F63CFDF0-C877-4F79-B626-F6AF4B39AF36}"
-EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SrvsToolSetup", "SrvsToolSetup\SrvsToolSetup.vdproj", "{27F6A0FA-88F3-4E3C-A1DA-49BA38165549}"
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SrvsTool", "SrvsTool.csproj", "{F63CFDF0-C877-4F79-B626-F6AF4B39AF36}"
 EndProject
 Global
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 3
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs05
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = SrvsTool\\SrvsTool.csproj
-		SccProjectName1 = SrvsTool
-		SccLocalPath1 = SrvsTool
-		SccProjectUniqueName2 = SrvsToolSetup\\SrvsToolSetup.vdproj
-		SccProjectName2 = SrvsToolSetup
-		SccLocalPath2 = SrvsToolSetup
-	EndGlobalSection
-	GlobalSection(SharpSetup) = preSolution
-		Version = 1.2
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		CodeAnalysisDebug|Any CPU = CodeAnalysisDebug|Any CPU
-		CodeAnalysisDebug|Mixed Platforms = CodeAnalysisDebug|Mixed Platforms
-		CodeAnalysisDebug|x86 = CodeAnalysisDebug|x86
 		Debug|Any CPU = Debug|Any CPU
-		Debug|Mixed Platforms = Debug|Mixed Platforms
-		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
-		Release|Mixed Platforms = Release|Mixed Platforms
-		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F63CFDF0-C877-4F79-B626-F6AF4B39AF36}.CodeAnalysisDebug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F63CFDF0-C877-4F79-B626-F6AF4B39AF36}.CodeAnalysisDebug|Any CPU.Build.0 = Debug|Any CPU
-		{F63CFDF0-C877-4F79-B626-F6AF4B39AF36}.CodeAnalysisDebug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{F63CFDF0-C877-4F79-B626-F6AF4B39AF36}.CodeAnalysisDebug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{F63CFDF0-C877-4F79-B626-F6AF4B39AF36}.CodeAnalysisDebug|x86.ActiveCfg = Debug|Any CPU
 		{F63CFDF0-C877-4F79-B626-F6AF4B39AF36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F63CFDF0-C877-4F79-B626-F6AF4B39AF36}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F63CFDF0-C877-4F79-B626-F6AF4B39AF36}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{F63CFDF0-C877-4F79-B626-F6AF4B39AF36}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{F63CFDF0-C877-4F79-B626-F6AF4B39AF36}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{F63CFDF0-C877-4F79-B626-F6AF4B39AF36}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F63CFDF0-C877-4F79-B626-F6AF4B39AF36}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F63CFDF0-C877-4F79-B626-F6AF4B39AF36}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{F63CFDF0-C877-4F79-B626-F6AF4B39AF36}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{F63CFDF0-C877-4F79-B626-F6AF4B39AF36}.Release|x86.ActiveCfg = Release|Any CPU
-		{27F6A0FA-88F3-4E3C-A1DA-49BA38165549}.CodeAnalysisDebug|Any CPU.ActiveCfg = Debug
-		{27F6A0FA-88F3-4E3C-A1DA-49BA38165549}.CodeAnalysisDebug|Mixed Platforms.ActiveCfg = Debug
-		{27F6A0FA-88F3-4E3C-A1DA-49BA38165549}.CodeAnalysisDebug|x86.ActiveCfg = Debug
-		{27F6A0FA-88F3-4E3C-A1DA-49BA38165549}.Debug|Any CPU.ActiveCfg = Debug
-		{27F6A0FA-88F3-4E3C-A1DA-49BA38165549}.Debug|Mixed Platforms.ActiveCfg = Debug
-		{27F6A0FA-88F3-4E3C-A1DA-49BA38165549}.Debug|x86.ActiveCfg = Debug
-		{27F6A0FA-88F3-4E3C-A1DA-49BA38165549}.Release|Any CPU.ActiveCfg = Release
-		{27F6A0FA-88F3-4E3C-A1DA-49BA38165549}.Release|Mixed Platforms.ActiveCfg = Release
-		{27F6A0FA-88F3-4E3C-A1DA-49BA38165549}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(SharpSetup) = preSolution
+		Version = 1.2
 	EndGlobalSection
 EndGlobal
